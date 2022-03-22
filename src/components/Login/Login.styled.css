@@ -1,0 +1,10 @@
+.login{
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    margin: 0 auto;
+    text-align: end;
+    justify-content: center;
+    height: 59vh;
+}
+

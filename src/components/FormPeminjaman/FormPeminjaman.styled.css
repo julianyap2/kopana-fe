@@ -1,0 +1,11 @@
+.containerForm{
+    padding: 0 100px;
+    margin-top: 20px !important;
+    background-color: white;
+    border: 0;
+    height: 100vh;
+}
+
+.inputan{
+    width: 100%;
+}

@@ -1,0 +1,11 @@
+.isiSyaratVisi{
+    padding-top: 25px;
+    display: block;
+    margin: 0 20%;
+    line-height: 40px;
+}
+.containerTentangKami{
+    display: block;
+    align-items: center;
+    justify-content: center;
+}

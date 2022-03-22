@@ -1,0 +1,31 @@
+.wrapper {
+  background: #50a6fc;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: 160px;
+  bottom: auto;
+  position:absolute;
+  width: 100%;
+  
+
+}
+.icon{
+  height: 50px;
+  width: 50px;
+}
+.midFooter{
+  margin-top: 20px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.leftFooter {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+.rightFooter {
+  margin-top: 20px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
