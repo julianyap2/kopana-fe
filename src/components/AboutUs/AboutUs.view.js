@@ -7,7 +7,7 @@ const AboutUs = () =>{
 
     const AddFormData = async (e) => {
       e.preventDefault();
-      const url = "http://192.168.43.77:3000/api/v1/saran"
+      const url = "http://localhost:3000/api/v1/saran"
       const data ={
         saran: saran
       }

@@ -67,7 +67,7 @@ const Setting = () => {
       let tes = JSON.parse(localStorage.getItem("user"));
       // console.log(tes.id);
       const response = await axios.get(
-        `http://192.168.43.77:3000/api/v1/member/${tes.id}`
+        `http://localhost:3000/api/v1/member/${tes.id}`
       );
       console.log(response.data);
       setTest(response.data);
@@ -107,7 +107,7 @@ const Setting = () => {
     formData.append("nomerPegawaiPertamina", noPegawai);
     formData.append("noKtp", noKtp);
     formData.append("tanggalLahir", tanggalLahir);
-    const url = "http://192.168.43.77:3000/api/v1/member";
+    const url = "http://localhost:3000/api/v1/member";
     const res = await axios.put(url, formData);
     console.log(res);
   };
@@ -120,7 +120,7 @@ const Setting = () => {
       newPassword: password,
       confirmNewPassword: confirmpassword
     }
-    const url = `http://192.168.43.77:3000/api/v1/changePassword/${tes.idUser}`;
+    const url = `http://localhost:3000/api/v1/changePassword/${tes.idUser}`;
     const res = await axios.put(url, data);
     console.log(res);
   }

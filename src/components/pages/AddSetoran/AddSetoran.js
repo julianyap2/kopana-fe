@@ -18,7 +18,7 @@ const InsideProfile = () => {
   const selectMembers = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.43.77:3000/api/v1/member`
+        `http://localhost:3000/api/v1/member`
       );
       console.log(response.data.data);
       setMember(response.data.data);
@@ -41,7 +41,7 @@ const InsideProfile = () => {
         deskripsi: deskripsi,
         memberId: selectMember,
       };
-      const url = "http://192.168.43.77:3000/api/v1/setoranwajib";
+      const url = "http://localhost:3000/api/v1/setoranwajib";
 
       const res = await axios.post(url, data);
       console.log(res);

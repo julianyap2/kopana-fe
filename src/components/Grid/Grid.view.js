@@ -38,7 +38,7 @@ const TitlebarGridList = () =>  {
 
   async function getData(){
     try {
-      const response = await axios.get('http://192.168.43.77:3000/api/v1/galeri');
+      const response = await axios.get('http://localhost:3000/api/v1/galeri');
       console.log(response);
       setFoto(response.data);
     } catch (error) {
@@ -57,7 +57,7 @@ const TitlebarGridList = () =>  {
         </GridListTile>
         {foto.data &&foto.data.map((tile) => (
           <GridListTile key={tile.img}>
-            <img src={'http://192.168.43.77:3000/'+tile.imageUrl} alt={tile.title} />
+            <img src={'http://localhost:3000/'+tile.imageUrl} alt={tile.title} />
             {console.log(tile.imageUrl)}
             <GridListTileBar
               title={tile.title}

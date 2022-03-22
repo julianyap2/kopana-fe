@@ -17,7 +17,7 @@ const Login = () => {
   }
   async function handleSubmit(event){
       event.preventDefault()
-    const url = "http://192.168.43.77:3000/api/v1/sign";
+    const url = "http://localhost:3000/api/v1/sign";
     const data ={
       password: password,
       email: email,

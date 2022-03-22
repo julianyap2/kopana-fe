@@ -33,7 +33,7 @@ const FormPeminjaman = (props) => {
     formData.append('imageSuratTeraTimbangan', suratTeraTimbangan)
     formData.append('imageKelengkapanSarana', kelengkapanSarana)
     formData.append('imageKtp', ktp)
-    const url = "http://192.168.43.77:3000/api/v1/formulir"
+    const url = "http://localhost:3000/api/v1/formulir"
 
     const res = await axios.post(url, formData)
     console.log(res);

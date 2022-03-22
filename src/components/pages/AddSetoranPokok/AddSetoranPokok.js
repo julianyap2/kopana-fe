@@ -17,7 +17,7 @@ const AddSetoranPokok = () => {
 
   const selectMembers = async () => {
     try {
-      const response = await axios.get(`http://192.168.43.77:3000/api/v1/member`);
+      const response = await axios.get(`http://localhost:3000/api/v1/member`);
       console.log(response.data.data);
       setMember(response.data.data);
       setIsLoading(false);
@@ -40,7 +40,7 @@ const AddSetoranPokok = () => {
         deskripsi: deskripsi,
         memberId: selectMember
       };
-       const url = "http://192.168.43.77:3000/api/v1/setoranpokok";
+       const url = "http://localhost:3000/api/v1/setoranpokok";
 
     const res = await axios.post(url, data);
     console.log(res);

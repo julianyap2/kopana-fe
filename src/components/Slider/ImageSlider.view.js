@@ -17,7 +17,7 @@ const ImageSlider = () => {
   const [loading, setLoading] = useState(true);
   async function getData(){
     try {
-      const response = await axios.get('http://192.168.43.77:3000/api/v1/galeri');
+      const response = await axios.get('http://localhost:3000/api/v1/galeri');
       console.log(response);
       setFoto(response.data);
     } catch (error) {
@@ -43,7 +43,7 @@ const ImageSlider = () => {
         {foto.data && foto.data.map((d) => (
           <SwiperSlide key={'swiper'}>
             <div style={{height:'100%',display:'flex',justifyContent:'center'}}>
-              <img src={'http://192.168.43.77:3000/'+d.imageUrl} alt={d._id} style={{justifyContent:'center'}} />
+              <img src={'http://localhost:3000/'+d.imageUrl} alt={d._id} style={{justifyContent:'center'}} />
             </div>
           </SwiperSlide>
         ))}

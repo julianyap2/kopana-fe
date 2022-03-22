@@ -12,7 +12,7 @@ const ProfileHeader = () => {
       let tes = JSON.parse(localStorage.getItem("user"));
       // console.log(tes.id);
       const response = await axios.get(
-        `http://192.168.43.77:3000/api/v1/member/${tes.id}`
+        `http://localhost:3000/api/v1/member/${tes.id}`
       );
       console.log(response.data);
       setMember(response.data);
