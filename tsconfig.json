@@ -3,10 +3,7 @@
         "target": "es2020",
         "module": "esnext",
         "jsx": "react-jsx",
-
         "allowUmdGlobalAccess": true,
-        
-
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "allowJs": true,
@@ -26,9 +23,7 @@
         ],
         "skipLibCheck": true,
         "skipDefaultLibCheck": true,
-
         "noStrictGenericChecks": true,
-
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true,
@@ -39,6 +34,7 @@
         "baseUrl": "src"
     },
     "include": [
+        "src/react-app-env.d.ts",
         "src/**/*.ts",
         "src/**/*.tsx",
     ],

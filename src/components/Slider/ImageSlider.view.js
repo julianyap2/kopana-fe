@@ -26,7 +26,7 @@ const ImageSlider = () => {
   }, [])
 
   return (
-    <div style={{ height: '100%' }}>
+    <div>
       <Swiper
         modules={[Navigation, Autoplay]}
         // style={{height:'100%'}}

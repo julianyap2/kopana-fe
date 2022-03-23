@@ -8,6 +8,10 @@ import { initGlobal } from 'api';
 
 initGlobal();
 
+globalThis.React = React;
+globalThis.ReactDOM = ReactDOM;
+
+
 ReactDOM.render(
   <React.StrictMode>
     <ToastProvider>

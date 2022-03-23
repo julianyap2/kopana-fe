@@ -1,15 +1,12 @@
-import React, { useState, useMemo } from 'react';
+import React, {  } from 'react';
 import {
   Nav,
   NavLink,
   Bars,
   NavMenu,
   NavBtn,
-  NavBtnLink,
-  Logo
-} from './Navbar.styled';
+  NavBtnLink} from './Navbar.styled';
 import image from '../../images/logo.svg'
-import Dropdown from 'react-bootstrap/Dropdown';
 import { useAuth } from 'contexts/auth.context';
 
 

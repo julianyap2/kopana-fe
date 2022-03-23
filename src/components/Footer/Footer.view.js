@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "../Button/Button.view.js";
 import { Link } from "react-router-dom";
-import "./Footer.styled.css";
 import iconWa from '../../iconwhatsapp.png';
 import iconGmail from '../../icongmail.png';
 
+import "./Footer.styled.css";
+import { Grid, Typography } from "@material-ui/core";
 
 const Footer = () => {
   const [click, setClick] = useState(false);
@@ -27,24 +28,34 @@ const Footer = () => {
 
   window.addEventListener("resize", showButton);
 
+
+  const links = [
+    { title: 'FAQ', url: '/' },
+    { title: 'Pangkalan', url: '/pangkalan' },
+    { title: 'Syarat Pangkalan', url: '/SyaratPangkalan' },
+    { title: 'Tentang Kami', url: '/tentang-kami' },
+    { title: 'FAQ', url: '/' },
+  ]
+
   return (
-    <>
-      <div class="wrapper">
-        <div className='leftFooter'>
-          <b>Tentang Kami</b>
-          <p>
-            <Link to='/beranda'>FAQ</Link>
-            <br/>
-            <Link to='/pangkalan'>Pangkalan</Link>
-            <br/>
-            <Link to='/SyaratPangkalan'>Syarat Pangkalan</Link>
-            <br/>
-            <Link to='/tentang-kami'>Tentang Kami</Link>
-            <br/>
-          </p>
+    <Grid container className="kop-footer">
+      <Grid item xs={4} className="section left" >
+        <div className="title">
+          <Typography variant="h6">Tentang Kami:</Typography>
         </div>
-        <div className='midFooter'>
-          <b>Koperasi Pensiunan Pertamina</b>
+        <ul className="info-left">
+          {links.map((link, i) => {
+            return <li className="info-item" key={'links-' + i}>
+              <Link to={link.url}>{link.title}</Link>
+            </li>
+          })}
+        </ul>
+      </Grid>
+      <Grid item xs={4} className="section mid" >
+        <div className="title">
+          <Typography variant="h6">Koperasi Pensiunan Pertamina</Typography>
+        </div>
+        <div className="body">
           <p>
             Jl. Parakan Saat No. 57 Kelurahan
             <br />
@@ -53,19 +64,21 @@ const Footer = () => {
             Antapani - Kota Bandung 40291
           </p>
         </div>
-        <div className='rightFooter'>
-          <b>Hubungi Kami</b>
-          <br/>
-          <br/>
-          <a href=' https://wa.me/62811245238'>
-            <img src={iconWa} alt="iconWhatsapp" className='icon'/>
+      </Grid>
+      <Grid item xs={4} className="section right" >
+        <div className="title">
+          <Typography variant="h6">Hubungi Kami:</Typography>
+        </div>
+        <div className="body">
+          <a className="link-icon" href=' https://wa.me/62811245238'>
+            <img src={iconWa} alt="iconWhatsapp" className='icon' width={20} />
           </a>
-          <a href='mailto:kopanabandung@gmail.com'>
-          <img src={iconGmail} alt="iconGmail" className='icon'/>
+          <a className="link-icon" href='mailto:kopanabandung@gmail.com'>
+            <img src={iconGmail} alt="iconGmail" className='icon' width={20} />
           </a>
         </div>
-      </div>
-    </>
+      </Grid>
+    </Grid>
   );
 };
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useToasts } from 'react-toast-notifications'
+import Button from '../Button/Button.view'
 import { KopanaApi } from "api";
 
 import './FormPeminjaman.styled.css';
@@ -165,9 +166,10 @@ const FormPeminjaman = (props) => {
           </label>
         </div>
         <br />
-        <button type="submit" class="btn btn-primary">
+
+        <Button type="submit">
           Simpan Transaksi
-        </button>
+        </Button>
       </form>
     </div>
   );
