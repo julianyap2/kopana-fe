@@ -3,13 +3,17 @@
         "target": "es2020",
         "module": "esnext",
         "jsx": "react-jsx",
+
+        "allowUmdGlobalAccess": true,
+        
+
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "allowJs": true,
         "resolveJsonModule": true,
         "strict": false,
         "strictBindCallApply": true,
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "noImplicitAny": false,
         "noImplicitOverride": true,
         "lib": [
@@ -18,9 +22,13 @@
             "esnext"
         ],
         "types": [
-            "node"
+            "node",
         ],
         "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+
+        "noStrictGenericChecks": true,
+
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true,
@@ -31,8 +39,8 @@
         "baseUrl": "src"
     },
     "include": [
-        "src/react-app-env.d.ts",
-        "src"
+        "src/**/*.ts",
+        "src/**/*.tsx",
     ],
     "exclude": [
         "craco.config.js",

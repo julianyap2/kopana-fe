@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import Tabs, { TabPane } from "rc-tabs";
 import "rc-tabs/assets/index.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import iziToast from "izitoast";
+import { useAuth } from "contexts/auth.context";
 
 const Setting = () => {
+  const auth = useAuth();
   const [name, setName] = useState("");
   const [noKtp, setNoKtp] = useState("");
   const [noPegawai, setNoPegawai] = useState("");
@@ -66,24 +68,24 @@ const Setting = () => {
     try {
       let tes = JSON.parse(localStorage.getItem("user"));
       // console.log(tes.id);
-      const response = await axios.get(
-        `http://localhost:3000/api/v1/member/${tes.id}`
+      const response = await Kopana.get(
+        `/member/${tes.id}`
       );
       console.log(response.data);
       setTest(response.data);
       setName(response.data.nama);
       setEmail(response.data.email);
       setNoPegawai(response.data.nomerPegawaiPertamina);
-      setNoAnggota(response.data.nomerAnggota?response.data.nomerAnggota:"" );
-      setNoKtp(response.data.noKtp?response.data.noKtp:"" );
-      setTanggalLahir(response.data.tanggalLahir?response.data.tanggalLahir:"" )
+      setNoAnggota(response.data.nomerAnggota ? response.data.nomerAnggota : "");
+      setNoKtp(response.data.noKtp ? response.data.noKtp : "");
+      setTanggalLahir(response.data.tanggalLahir ? response.data.tanggalLahir : "")
       setNoDihubungi(response.data.nomerTelepon);
       setIsLoading(false);
       if (response.status == 200) {
         iziToast.success({
           title: 'Berhasil',
           message: 'Berhasil Mengganti Data',
-      });
+        });
       }
     } catch (error) {
       console.error(error);
@@ -107,12 +109,11 @@ const Setting = () => {
     formData.append("nomerPegawaiPertamina", noPegawai);
     formData.append("noKtp", noKtp);
     formData.append("tanggalLahir", tanggalLahir);
-    const url = "http://localhost:3000/api/v1/member";
-    const res = await axios.put(url, formData);
+    const res = await Kopana.put('/member', formData);
     console.log(res);
   };
 
-  const changePass = async (event)=>{
+  const changePass = async (event) => {
     event.preventDefault();
     let tes = JSON.parse(localStorage.getItem("user"))
     const data = {
@@ -120,10 +121,10 @@ const Setting = () => {
       newPassword: password,
       confirmNewPassword: confirmpassword
     }
-    const url = `http://localhost:3000/api/v1/changePassword/${tes.idUser}`;
-    const res = await axios.put(url, data);
+    const res = await Kopana.put(`/update-password/${tes.idUser}`, data);
     console.log(res);
   }
+
   return loading ? (
     "Loading"
   ) : (
@@ -408,14 +409,15 @@ const Setting = () => {
               >
                 Ubah Password
               </button>
-              <Link to='/beranda'>
-              <button
-                type="submit"
-                class="btn btn-primary"
-                style={{ marginTop: "10px", marginLeft: "485px" }}
-              >
-                Logout
-              </button>
+              <Link to='/'>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  style={{ marginTop: "10px", marginLeft: "485px" }}
+                  onClick={auth.Logout}
+                >
+                  Logout
+                </button>
               </Link>
             </form>
           </div>

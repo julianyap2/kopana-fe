@@ -1,4 +1,4 @@
-import React,{useState,useMemo} from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Nav,
   NavLink,
@@ -10,33 +10,43 @@ import {
 } from './Navbar.styled';
 import image from '../../images/logo.svg'
 import Dropdown from 'react-bootstrap/Dropdown';
+import { useAuth } from 'contexts/auth.context';
 
 
 
 const Navbar = () => {
-  
+  const auth = useAuth();
+
+  const links = [
+    { title: 'Galeri', url: '/gallery' },
+    { title: 'Pangkalan', url: '/pangkalan' },
+  ]
+
   return (
     <>
       <Nav>
         <NavLink to='/'>
-            <img src={image} alt={'Logo'} style={{height:"70px"}}/>
+          <img src={image} alt={'Logo'} style={{ height: "70px" }} />
         </NavLink>
-        <Bars/>    
+        <Bars />
         <NavMenu>
-          <NavLink to='/beranda' activeStyle>
+          <NavLink to='/' activeStyle>
             Beranda
           </NavLink>
-          <NavLink to='/gallery' activeStyle>
-            Galeri
-          </NavLink>
-          <NavLink to='/pangkalan' activeStyle>
-            Pangkalan
-          </NavLink>
-          {/* Second Nav */}
-          {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}
+
+          {links.map(({ title, url }) => {
+            url += auth.isLogin ? '-login' : '';
+            return <NavLink to={url} activeStyle>
+              {title}
+            </NavLink>
+          })}
+
         </NavMenu>
         <NavBtn>
-          <NavBtnLink to='/login'>Log In</NavBtnLink>
+          {auth.isLogin ?
+            <NavBtnLink to='/profile'>Profile</NavBtnLink> :
+            <NavBtnLink to='/login'>Log In</NavBtnLink>
+          }
         </NavBtn>
       </Nav>
     </>

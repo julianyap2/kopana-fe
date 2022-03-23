@@ -3,10 +3,11 @@ import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import { KopanaApi } from "api";
 
 const AddSetoranPokok = () => {
   const [member, setMember] = useState([]);
-  const [selectMember,  setSelectember] = useState("");
+  const [selectMember, setSelectember] = useState("");
   const [tanggal, setTanggal] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
   const [loading, setIsLoading] = useState(true);
@@ -17,7 +18,7 @@ const AddSetoranPokok = () => {
 
   const selectMembers = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/v1/member`);
+      const response = await Kopana.get(`/member`);
       console.log(response.data.data);
       setMember(response.data.data);
       setIsLoading(false);
@@ -30,9 +31,9 @@ const AddSetoranPokok = () => {
   }, []);
 
   async function handleSubmit(event) {
-    
+
     event.preventDefault();
-    if (selectMember === "test" || selectMember === "" ) {
+    if (selectMember === "test" || selectMember === "") {
       alert("Silangkah Pilih member")
     } else {
       const data = {
@@ -40,16 +41,15 @@ const AddSetoranPokok = () => {
         deskripsi: deskripsi,
         memberId: selectMember
       };
-       const url = "http://localhost:3000/api/v1/setoranpokok";
 
-    const res = await axios.post(url, data);
-    console.log(res);
+      const res = await KopanaApi.post('/setoranpokok', data);
+      console.log(res);
     }
 
   }
 
   return loading ? (
-    "Loading"
+    <>Loading</>
   ) : (
     <div>
       <Form onSubmit={handleSubmit}>
@@ -58,20 +58,20 @@ const AddSetoranPokok = () => {
           <Form.Control
             as="select"
             // defaultValue={member[0]._id}
-            onChange={(e) => 
+            onChange={(e) =>
               setSelectember(e.target.value)
             }
           >
-             <option value="test">Silahkan Pilih member</option>
+            <option value="test">Silahkan Pilih member</option>
             {member.map((d) => (
-              <option  key={d._id} value={d._id}>{d.nama}</option>
+              <option key={d._id} value={d._id}>{d.nama}</option>
             ))}
           </Form.Control>
         </Form.Group>
         <Form.Group size="lg" controlId="tanggal">
           <Form.Label style={{ marginRight: "10px" }}>tanggal</Form.Label>
           <Form.Control
-            autoFocus 
+            autoFocus
             type="datetime-local"
             value={tanggal}
             onChange={(e) => setTanggal(e.target.value)}

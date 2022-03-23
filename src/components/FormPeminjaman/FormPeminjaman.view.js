@@ -1,9 +1,8 @@
-import React, { useState, useMemo } from "react";
-import {useDropzone} from 'react-dropzone';
-import './FormPeminjaman.styled.css';
-import iziToast from "izitoast";
+import { useState } from "react";
 import { useToasts } from 'react-toast-notifications'
-import axios from "axios";
+import { KopanaApi } from "api";
+
+import './FormPeminjaman.styled.css';
 
 const FormPeminjaman = (props) => {
   const [alamatRumah, setAlamatRumah] = useState("");
@@ -33,15 +32,14 @@ const FormPeminjaman = (props) => {
     formData.append('imageSuratTeraTimbangan', suratTeraTimbangan)
     formData.append('imageKelengkapanSarana', kelengkapanSarana)
     formData.append('imageKtp', ktp)
-    const url = "http://localhost:3000/api/v1/formulir"
 
-    const res = await axios.post(url, formData)
+    const res = await KopanaApi.post('/formulir', formData)
     console.log(res);
     if (res.status == 200) {
       addToast("berhasil!", {
         appearance: 'success',
         autoDismiss: true,
-       })
+      })
     }
   };
 

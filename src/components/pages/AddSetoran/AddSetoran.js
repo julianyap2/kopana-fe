@@ -17,9 +17,7 @@ const InsideProfile = () => {
 
   const selectMembers = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:3000/api/v1/member`
-      );
+      const response = await Kopana.get('/member');
       console.log(response.data.data);
       setMember(response.data.data);
       setIsLoading(false);
@@ -41,15 +39,14 @@ const InsideProfile = () => {
         deskripsi: deskripsi,
         memberId: selectMember,
       };
-      const url = "http://localhost:3000/api/v1/setoranwajib";
 
-      const res = await axios.post(url, data);
+      const res = await Kopana.post('/setoranwajib', data);
       console.log(res);
     }
   }
 
   return loading ? (
-    "Loading"
+    <>Loading</>
   ) : (
     <div>
       <Form onSubmit={handleSubmit}>

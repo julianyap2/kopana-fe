@@ -23,8 +23,7 @@ const AddGallery = () => {
     // formData.append('imageSuratTeraTimbangan', fotoProfile)
     // formData.append('imageKelengkapanSarana', selectedFile)
 
-    const url = "http://localhost:3000/api/v1/galeri";
-    const res = await axios.post(url, formData);
+    const res = await Kopana.post('/galeri', formData);
     console.log(res);
   }
 

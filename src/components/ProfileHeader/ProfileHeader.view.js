@@ -11,8 +11,8 @@ const ProfileHeader = () => {
     try {
       let tes = JSON.parse(localStorage.getItem("user"));
       // console.log(tes.id);
-      const response = await axios.get(
-        `http://localhost:3000/api/v1/member/${tes.id}`
+      const response = await Kopana.get(
+        `/member/${tes.id}`
       );
       console.log(response.data);
       setMember(response.data);
@@ -27,7 +27,7 @@ const ProfileHeader = () => {
 
   let fotoProfile = member.foto || profileImg;
   if (fotoProfile !== profileImg) {
-    fotoProfile = "http://localhost:3000/" + fotoProfile;
+    fotoProfile = Kopana.join(fotoProfile);
   }
 
   return loading ? (

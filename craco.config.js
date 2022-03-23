@@ -7,7 +7,11 @@ const config = {
     plugins: [
         { plugin: cracoSwc }
     ],
+    typescript: {
+        enableTypeChecking: false
+    },
     webpack: {
+
         alias: {
             "~/": path.resolve('src')
         }

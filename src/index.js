@@ -4,7 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ToastProvider, useToasts } from 'react-toast-notifications';
+import { initGlobal } from 'api';
 
+initGlobal();
 
 ReactDOM.render(
   <React.StrictMode>

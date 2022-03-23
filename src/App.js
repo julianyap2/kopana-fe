@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Route ,Link, Routes} from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import Home from "./components/pages/Home/Home.view";
 import Gallery from "./components/pages/Gallery/Gallery.view";
 import Peminjaman from "./components/pages/Peminjaman/Peminjaman.view"
@@ -17,33 +17,37 @@ import SyaratPangkalanLogin from "./components/pages/SyaratPeminjamanLogin/Syara
 import TentangKami from "./components/pages/TentangKami/TentangKami.view";
 import TentangKamiLogin from "./components/pages/TentangKamiLogin/TentangKamiLogin.view";
 import AddSetoranPokok from "./components/pages/AddSetoranPokok/AddSetoranPokok"
+import { AuthProvider } from "contexts/auth.context";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route exact path="/gallery" element={<Gallery />} />
-        <Route exact path="/beranda" element={<Home />} />
-        <Route exact path="/pangkalan" element={<Peminjaman />} />
-        <Route exact path='/login' element={<Login/>}/>
-        <Route exact path='/daftar' element={<Daftar/>}/>
-        <Route exact path='/SyaratPangkalan' element={<SyaratPeminjaman/>}/>
-        <Route exact path='/profile' element={<Profile/>}/>
-        <Route exact path='/profile-setting' element={<ProfileSetting/>}/>
-        <Route exact path='/beranda-login' element={<HomeLogin/>}/>
-        <Route exact path='/gallery-login' element={<GalleryLogin/>}/>
-        <Route exact path='/upload-gallery' element={<AddGalery/>}/>
-        <Route exact path='/SyaratPangkalan-login' element={<SyaratPangkalanLogin/>}/>
-        <Route exact path='/pangkalan-login' element={<PangkalanLogin/>}/>
-        <Route exact path='/add-setoran' element={<InsideProfile/>}/>
-        <Route exact path='/add-setoranpokok' element={<AddSetoranPokok/>}/>
-        <Route exact path='/tentang-kami' element={<TentangKami/>}/>
-        <Route exact path='/tentang-kami-login' element={<TentangKamiLogin/>}/>
-      </Routes>
-    </Router>
-    
-);
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route caseSensitive path="/" element={<Home />} />
+          <Route caseSensitive path="/gallery" element={<Gallery />} />
+          <Route caseSensitive path="/pangkalan" element={<Peminjaman />} />
+          
+          <Route caseSensitive path='/beranda-login' element={<HomeLogin />} />
+          <Route caseSensitive path='/gallery-login' element={<GalleryLogin />} />
+          <Route caseSensitive path='/upload-gallery' element={<AddGalery />} />
+
+          <Route caseSensitive path='/login' element={<Login />} />
+          <Route caseSensitive path='/daftar' element={<Daftar />} />
+          <Route caseSensitive path='/SyaratPangkalan' element={<SyaratPeminjaman />} />
+          <Route caseSensitive path='/profile' element={<Profile />} />
+          <Route caseSensitive path='/profile-setting' element={<ProfileSetting />} />
+          
+          <Route caseSensitive path='/SyaratPangkalan-login' element={<SyaratPangkalanLogin />} />
+          <Route caseSensitive path='/pangkalan-login' element={<PangkalanLogin />} />
+          <Route caseSensitive path='/add-setoran' element={<InsideProfile />} />
+          <Route caseSensitive path='/add-setoranpokok' element={<AddSetoranPokok />} />
+          <Route caseSensitive path='/tentang-kami' element={<TentangKami />} />
+          <Route caseSensitive path='/tentang-kami-login' element={<TentangKamiLogin />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
+  );
 }
 
 export default App;

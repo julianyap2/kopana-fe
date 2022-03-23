@@ -1,4 +1,4 @@
-import React,{useState,useMemo} from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Nav,
   NavLink,
@@ -14,16 +14,16 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 
 const NavbarLogin = () => {
-  
+
   return (
     <>
       <Nav>
         <NavLink to='/'>
-            <img src={image} alt={'Logo'} style={{height:"70px"}}/>
+          <img src={image} alt={'Logo'} style={{ height: "70px" }} />
         </NavLink>
-        <Bars/>    
+        <Bars />
         <NavMenu>
-          <NavLink to='/beranda-login' activeStyle>
+          <NavLink to='/' activeStyle>
             Beranda
           </NavLink>
           <NavLink to='/gallery-login' activeStyle>
@@ -32,8 +32,6 @@ const NavbarLogin = () => {
           <NavLink to='/pangkalan-login' activeStyle>
             Pangkalan
           </NavLink>
-          {/* Second Nav */}
-          {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}
         </NavMenu>
         <NavBtn>
           <NavBtnLink to='/profile'>Profile</NavBtnLink>

@@ -1,9 +1,9 @@
-import axios from "axios";
 import React, { useState, useMemo } from "react";
 import { useDropzone } from "react-dropzone";
-import './Daftar.styled.css';
-import iziToast from "izitoast";
 import { useToasts } from 'react-toast-notifications'
+import { KopanaApi } from "api";
+
+import './Daftar.styled.css';
 
 
 const Daftar = () => {
@@ -19,7 +19,6 @@ const Daftar = () => {
 
   const AddFormData = async (e) => {
     e.preventDefault();
-    const url = "http://localhost:3000/api/v1/signUp"
     const data = {
       nama: name,
       password: password,
@@ -28,10 +27,10 @@ const Daftar = () => {
       noPegawaiPertamina: noPegawai,
       noTlpn: noDihubungi,
     }
-    const res = await axios.post(url, data)
+    const res = await KopanaApi.post(url, data)
     console.log(res);
 
-    if (res.status == 200) {
+    if (res.status >= 200 && res.status < 300) {
       addToast("berhasil!", {
         appearance: 'success',
         autoDismiss: true,
@@ -40,8 +39,6 @@ const Daftar = () => {
     }
   };
   const {
-    getRootProps,
-    getInputProps,
     isDragActive,
     isDragAccept,
     isDragReject,
