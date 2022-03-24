@@ -7,7 +7,7 @@ const Peminjaman = () => {
   return (
     <div>
       <Navbar />
-      <FormPeminjaman/>
+      <FormPeminjaman />
       <Footer />
     </div>
   );

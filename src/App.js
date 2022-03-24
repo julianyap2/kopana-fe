@@ -15,6 +15,8 @@ import GalleryLogin from "./components/pages/GalleryLogin/GalleryLogin.view";
 import AddGalery from "./components/pages/AddGallery/AddGallery"
 import PangkalanLogin from "./components/pages/PangkalanLogin/PangkalanLogin.view";
 import InsideProfile from "./components/pages/AddSetoran/AddSetoran";
+import ListSetoran from './components/pages/Setoran/list-setoran.page'
+import FormSetoranPage from './components/pages/Setoran/add-setoran.page'
 import SyaratPangkalanLogin from "./components/pages/SyaratPeminjamanLogin/SyaratPeminjamanLogin";
 import TentangKami from "./components/pages/TentangKami/TentangKami.view";
 import TentangKamiLogin from "./components/pages/TentangKamiLogin/TentangKamiLogin.view";
@@ -29,6 +31,8 @@ function App() {
           <Route caseSensitive path="/" element={<Home />} />
           <Route caseSensitive path="/gallery" element={<Gallery />} />
           <Route caseSensitive path="/pangkalan" element={<Peminjaman />} />
+          <Route caseSensitive path="/setoran" element={<ListSetoran />} />
+          <Route caseSensitive path="/setoran/add" element={<FormSetoranPage />} />
           
           <Route caseSensitive path='/beranda-login' element={<HomeLogin />} />
           <Route caseSensitive path='/gallery-login' element={<GalleryLogin />} />

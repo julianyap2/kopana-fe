@@ -3,12 +3,12 @@ import Tabs, { TabPane } from "rc-tabs";
 import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
 import iziToast from "izitoast";
-import { useAuth } from "contexts/auth.context";
 import Button from "../Button/Button.view";
 
 import "rc-tabs/assets/index.css";
 import "./Setting.styled.css";
 import { classNames } from "../../utils/merge-classname";
+import { useAuth } from "../../contexts/auth.context";
 
 const Setting = () => {
    const auth = useAuth();
@@ -405,7 +405,9 @@ const Setting = () => {
                         >
                            Ubah Password
                         </Button>
-                        <Button link={"/"} style={{ float: "right" }}>
+                        <Button link={"/"} style={{ float: "right" }} onClick={async () => {
+                           await auth.Logout()
+                        }}>
                            Logout
                         </Button>
                      </div>

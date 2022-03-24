@@ -34,7 +34,7 @@ const AddSetoran = () => {
             memberId: selectMember,
          };
 
-         const res = await Kopana.post("/setoranwajib", data);
+         const res = await Kopana.post("/setoran-wajib", data);
          console.log(res);
       }
    }
@@ -98,21 +98,22 @@ const AddSetoran = () => {
 
    if (loading) return null;
 
-   return (
-      <Tabs
-         defaultActiveKey="add-setoran"
-         direction="ltr"
-         tabPosition="top"
-         prefix="st"
-      >
-         <Tabs.TabPane tab="List Setoran" key="list-setoran">
-            <TabListSetoran />
-         </Tabs.TabPane>
-         <Tabs.TabPane tab="Tambah Setoran" key="add-setoran">
-            Hello 2
-         </Tabs.TabPane>
-      </Tabs>
-   );
+   return unused();
+   // return (
+   //    <Tabs
+   //       defaultActiveKey="add-setoran"
+   //       direction="ltr"
+   //       tabPosition="top"
+   //       prefix="st"
+   //    >
+   //       <Tabs.TabPane tab="List Setoran" key="list-setoran">
+   //          <TabListSetoran />
+   //       </Tabs.TabPane>
+   //       <Tabs.TabPane tab="Tambah Setoran" key="add-setoran">
+   //          Hello 2
+   //       </Tabs.TabPane>
+   //    </Tabs>
+   // );
 };
 
 export default AddSetoran;

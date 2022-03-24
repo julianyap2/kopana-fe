@@ -4,6 +4,7 @@ const SERVER_PORT = process.env.SERVER_PORT || 3000;
 const SERVER_URL = `http://localhost:${SERVER_PORT}/api/v1`;
 export const KopanaApi = axios.create({
    baseURL: SERVER_URL,
+   withCredentials: true,
 }) as KopanaInstance;
 
 export function isStatus200ish(status: number) {
