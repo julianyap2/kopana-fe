@@ -14,14 +14,6 @@ const FormPeminjaman = (props) => {
   const [keteranganUsaha, setKeteranganUsaha] = useState([]);
   const [suratTeraTimbangan, setSuratTeraTimbangan] = useState([]);
   const [kelengkapanSarana, setkelengkapanSarana] = useState([])
-  // const AddFormData = (e) => {
-  //   e.preventDefault();
-  //   FormData({ alamatRumah, LPG, alamatPangkalan, setuju });
-  //   setAlamatRumah("");
-  //   setAlamatPangkalan("");
-  //   setLPG("");
-  //   setSetuju(false);
-  // };
   const { addToast } = useToasts();
   const AddFormData = async (e) => {
     e.preventDefault();
@@ -114,7 +106,7 @@ const FormPeminjaman = (props) => {
             berdasarkan alamat di atas.
           </label>
         </div>
-        <div className="containerDropzone" style={{ marginTop: "10px" }}>
+        <div className="form-group containerDropzone" style={{ marginTop: "10px" }}>
           <span for="myfile">Upload Foto KTP : </span>
           <input
             type="file"
@@ -122,7 +114,7 @@ const FormPeminjaman = (props) => {
           />
           <br />
         </div>
-        <div className="containerDropzone" style={{ marginTop: "10px" }}>
+        <div className="form-group containerDropzone" style={{ marginTop: "10px" }}>
           <span for="myfile">Surat Keterangan Usaha : </span>
           <input
             type="file"
@@ -130,7 +122,7 @@ const FormPeminjaman = (props) => {
           />
           <br />
         </div>
-        <div className="containerDropzone" style={{ marginTop: "10px" }}>
+        <div className="form-group containerDropzone" style={{ marginTop: "10px" }}>
           <span for="myfile">Surat Tera Timbangan LPG 3 kg : </span>
           <input
             type="file"
@@ -138,7 +130,7 @@ const FormPeminjaman = (props) => {
           />
           <br />
         </div>
-        <div className="containerDropzone" style={{ marginTop: "10px" }}>
+        <div className="form-group containerDropzone" style={{ marginTop: "10px" }}>
           <span for="myfile">
             Foto kelengkapan sarana dan fasilitas pangkalan :{" "}
           </span>
