@@ -218,13 +218,6 @@ const Setting = () => {
                            />
                         </div>
                      </div>
-                     {/* <button
-                    type="submit"
-                    class="btn btn-primary"
-                    style={{ marginTop: "10px", marginLeft: "100px" }}
-                  >
-                    Simpan Perubahan
-                  </button> */}
                   </form>
                </div>
             </TabPane>
@@ -406,7 +399,8 @@ const Setting = () => {
                            Ubah Password
                         </Button>
                         <Button link={"/"} style={{ float: "right" }} onClick={async () => {
-                           await auth.Logout()
+                           await auth.Logout();
+                           window.location.reload();
                         }}>
                            Logout
                         </Button>

@@ -1,9 +1,10 @@
 import axios, { AxiosInstance } from "axios";
 
 const SERVER_PORT = process.env.SERVER_PORT || 3000;
-const SERVER_URL = `http://localhost:${SERVER_PORT}/api/v1`;
+const SERVER_URL = `http://localhost:${SERVER_PORT}`;
+const SERVER_API = SERVER_URL + '/api/v1';
 export const KopanaApi = axios.create({
-   baseURL: SERVER_URL,
+   baseURL: SERVER_API,
    withCredentials: true,
 }) as KopanaInstance;
 
@@ -36,6 +37,7 @@ export function initGlobal() {
 
       kopana.join = function (path: string) {
          if (!path.startsWith("/")) path = "/" + path;
+         
          return SERVER_URL + path;
       };
    })((window.Kopana = KopanaApi));

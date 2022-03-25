@@ -6,7 +6,7 @@ import moment from 'moment'
 
 function TabGroup() {
   const [toggleState, setToggleState] = useState(1);
-  const [test, setTest]= useState({})
+  const [test, setTest] = useState({})
   const [loading, setIsLoading] = useState(true)
 
   const toggleTab = (index) => {
@@ -14,24 +14,23 @@ function TabGroup() {
   };
 
 
-  const getUser= async() => {
+  const getUser = async () => {
     try {
       let tes = JSON.parse(localStorage.getItem("user"))
-      // console.log(tes.id);
-    const response = await Kopana.get(`/member/${tes.id}`);
+      const response = await Kopana.get(`/member/${tes.id}`);
       console.log(response.data);
       setTest(response.data)
       setIsLoading(false)
     } catch (error) {
       console.error(error);
     }
-}
-useEffect(()=>{
+  }
+  useEffect(() => {
     getUser()
     console.log('test')
-  },[])
+  }, [])
 
-  return loading? "Loading": (
+  return loading ? "Loading" : (
     <div className="container">
       <div className="bloc-tabs">
         <button
@@ -56,12 +55,12 @@ useEffect(()=>{
             <div className="tanggal">Tanggal</div>
             <div className="keterangan">Keterangan</div>
           </div>
-          {test.setoranPokokId.map((d)=>(
-             <div style={{display:'flex'}}>
-             <div className="tanggal">{moment(d.tanggal).format("DD-MM-YYYY")}</div>
-             <div className="keterangan">{d.deskripsi}</div>
-             </div>
-           ))}
+          {test.setoranPokokId.map((d) => (
+            <div style={{ display: 'flex' }}>
+              <div className="tanggal">{moment(d.tanggal).format("DD-MM-YYYY")}</div>
+              <div className="keterangan">{d.deskripsi}</div>
+            </div>
+          ))}
         </div>
 
         <div
@@ -70,14 +69,14 @@ useEffect(()=>{
           <div className="containerTanggalKet">
             <div className="tanggal">Tanggal</div>
             <div className="keterangan">Keterangan</div>
-            
+
           </div>
-          {test.setoranId.map((d)=>(
-             <div style={{display:'flex'}}>
-             <div className="tanggal">{moment(d.tanggal).format("DD-MM-YYYY")}</div>
-             <div className="keterangan">{d.deskripsi}</div>
-             </div>
-           ))}
+          {test.setoranId.map((d) => (
+            <div style={{ display: 'flex' }}>
+              <div className="tanggal">{moment(d.tanggal).format("DD-MM-YYYY")}</div>
+              <div className="keterangan">{d.deskripsi}</div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

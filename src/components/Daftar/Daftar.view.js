@@ -27,7 +27,7 @@ const Daftar = () => {
       noPegawaiPertamina: noPegawai,
       noTlpn: noDihubungi,
     }
-    const res = await KopanaApi.post(url, data)
+    const res = await KopanaApi.post('/sign-up', data)
     console.log(res);
 
     if (res.status >= 200 && res.status < 300) {
