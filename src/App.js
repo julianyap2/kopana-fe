@@ -36,7 +36,7 @@ function App() {
           
           <Route caseSensitive path='/beranda-login' element={<HomeLogin />} />
           <Route caseSensitive path='/gallery-login' element={<GalleryLogin />} />
-          <Route caseSensitive path='/upload-gallery' element={<AddGalery />} />
+          <Route caseSensitive path='/add-gallery' element={<AddGalery />} />
 
           <Route caseSensitive path='/login' element={<Login />} />
           <Route caseSensitive path='/daftar' element={<Daftar />} />

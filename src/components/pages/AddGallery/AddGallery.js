@@ -23,8 +23,9 @@ const AddGallery = () => {
     // formData.append('imageSuratTeraTimbangan', fotoProfile)
     // formData.append('imageKelengkapanSarana', selectedFile)
 
-    const res = await Kopana.post('/galeri', formData);
-    console.log(res);
+    Kopana.post('/galeri', formData)
+      .then(console.log)
+      .catch(console.error);
   }
 
   return (
