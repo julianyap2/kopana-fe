@@ -123,126 +123,144 @@ function SetoranTable({ type }: SetoranTableProps) {
    }, []);
 
    return (
-      <Table className="table-setoran">
-         <TableHead>
-            <TableRow>
-               <TableCell>No.</TableCell>
-               <TableCell>Member</TableCell>
-               <TableCell>Deskripsi</TableCell>
-               <TableCell>Tanggal</TableCell>
-               <TableCell>Saldo</TableCell>
-            </TableRow>
-         </TableHead>
-         <TableBody>
-            {datas.length === 0 && "No Data"}
-            {datas.length > 0 &&
-               datas.map((data, index) => {
-                  const date = new Date(data.tanggal);
-                  const format = [
-                     DayWeek[date.getDay()],
-                     ", ",
-                     date.getDate(),
-                     " ",
-                     Month[date.getMonth()],
-                     " ",
-                     date.getFullYear(),
-                  ].join("");
-
-                  return (
-                     <TableRow key={`${type}-${index}`}>
-                        <TableCell>{index + 1}</TableCell>
-                        <TableCell>{data.memberId.nama}</TableCell>
-                        <TableCell>{data.deskripsi}</TableCell>
-                        <TableCell>{format}</TableCell>
-                        <TableCell>{data.saldo || 0}</TableCell>
-                     </TableRow>
-                  );
-               })}
-         </TableBody>
-         <TableFooter>
-            <TableRow>
-               <TableCell className="table-filter" colSpan={3}>
-                  <Select
-                     label="Member"
-                     defaultValue={"all"}
-                     onChange={(e) =>
-                        setFilterData("member", e.target.value as any)
-                     }
-                  >
-                     <MenuItem value={"all"}>
-                        <em>All</em>
-                     </MenuItem>
-                     {members.map((e) => (
+      <>
+         <div className="table-filter">
+            <Select
+               label="Member"
+               defaultValue={"all"}
+               onChange={(e) =>
+                  setFilterData("member", e.target.value as any)
+               }
+            >
+               <MenuItem value={"all"}>
+                  <em>All</em>
+               </MenuItem>
+               {members.map((e) => (
+                  <MenuItem key={"filter-name:" + e.nama} value={e._id}>
+                     {e.nama}
+                  </MenuItem>
+               ))}
+            </Select>
+            <Select
+               label="Bulan"
+               defaultValue={"all"}
+               onChange={(e) =>
+                  setFilterData("bulan", e.target.value as any)
+               }
+            >
+               <MenuItem value={"all"}>
+                  <em>bulan</em>
+               </MenuItem>
+               {Object.keys(Month)
+                  .filter((e) => typeof Month[e] === "number")
+                  .map((e) => {
+                     return (
                         <MenuItem
-                           key={"filter-name:" + e.nama}
-                           value={e._id}
+                           key={"filter-month:" + Month[e]}
+                           value={Month[e] + 1}
                         >
-                           {e.nama}
+                           {e}
                         </MenuItem>
-                     ))}
-                  </Select>
-                  <Select
-                     label="Bulan"
-                     defaultValue={"all"}
-                     onChange={(e) =>
-                        setFilterData("bulan", e.target.value as any)
-                     }
-                  >
-                     <MenuItem value={"all"}>
-                        <em>bulan</em>
-                     </MenuItem>
-                     {Object.keys(Month)
-                        .filter((e) => typeof Month[e] === "number")
-                        .map((e) => {
-                           return (
-                              <MenuItem
-                                 key={"filter-month:" + Month[e]}
-                                 value={Month[e] + 1}
-                              >
-                                 {e}
-                              </MenuItem>
-                           );
-                        })}
-                  </Select>
-                  <Select
-                     label="Tahun"
-                     defaultValue={"all"}
-                     onChange={(e) =>
-                        setFilterData("tahun", e.target.value as any)
-                     }
-                  >
-                     <MenuItem value={"all"}>
-                        <em>tahun</em>
-                     </MenuItem>
-                     {new Array(5)
-                        .fill(currentDate.getFullYear())
-                        .map((e, i) => {
-                           const year = e - i;
-                           return (
-                              <MenuItem
-                                 key={"filter-month:" + year}
-                                 value={year}
-                              >
-                                 {year}
-                              </MenuItem>
-                           );
-                        })}
-                  </Select>
-                  <Button onClick={(e) => onPageChange(pageable.page)}>
-                     Search
-                  </Button>
-               </TableCell>
-               <TablePagination
-                  colSpan={2}
-                  component={"td"}
-                  count={pageable.total}
-                  rowsPerPage={pageable.size}
-                  page={pageable.page}
-                  onPageChange={(e, v) => onPageChange(v)}
-               />
-            </TableRow>
-         </TableFooter>
-      </Table>
+                     );
+                  })}
+            </Select>
+            <Select
+               label="Tahun"
+               defaultValue={"all"}
+               onChange={(e) =>
+                  setFilterData("tahun", e.target.value as any)
+               }
+            >
+               <MenuItem value={"all"}>
+                  <em>tahun</em>
+               </MenuItem>
+               {new Array(5)
+                  .fill(currentDate.getFullYear())
+                  .map((e, i) => {
+                     const year = e - i;
+                     return (
+                        <MenuItem
+                           key={"filter-month:" + year}
+                           value={year}
+                        >
+                           {year}
+                        </MenuItem>
+                     );
+                  })}
+            </Select>
+            <Button onClick={(e) => onPageChange(pageable.page)}>
+               Search
+            </Button>
+            <Button onClick={(e) => setFilter({
+               bulan: null,
+               member: null,
+               tahun: null
+            })}>
+               Reset
+            </Button>
+         </div>
+         <Table className="table-setoran">
+            <TableHead>
+               <TableRow>
+                  <TableCell>No.</TableCell>
+                  <TableCell>Member</TableCell>
+                  <TableCell>Deskripsi</TableCell>
+                  <TableCell>Tanggal</TableCell>
+                  <TableCell>Saldo</TableCell>
+               </TableRow>
+            </TableHead>
+            <TableBody>
+               {datas.length === 0 && "No Data"}
+               {datas.length > 0 &&
+                  datas.map((data, index) => {
+                     const date = new Date(data.tanggal);
+                     const format = [
+                        DayWeek[date.getDay()],
+                        ", ",
+                        date.getDate(),
+                        " ",
+                        Month[date.getMonth()],
+                        " ",
+                        date.getFullYear(),
+                     ].join("");
+
+                     return (
+                        <TableRow key={`${type}-${index}`}>
+                           <TableCell>{index + 1}</TableCell>
+                           <TableCell>{data.memberId.nama}</TableCell>
+                           <TableCell>{data.deskripsi}</TableCell>
+                           <TableCell>{format}</TableCell>
+                           <TableCell>{data.saldo || 0}</TableCell>
+                        </TableRow>
+                     );
+                  })}
+            </TableBody>
+            <TableFooter>
+               <TableRow>
+                  <TablePagination
+                     colSpan={3}
+                     component={"td"}
+                     count={pageable.total}
+                     rowsPerPage={pageable.size}
+                     page={pageable.page}
+                     onPageChange={(e, v) => onPageChange(v)}
+                  />
+                  <TableCell>Total Saldo: </TableCell>
+                  <TableCell>
+                     {datas &&
+                        datas.length > 0 &&
+                        datas
+                           .map((e) => e.saldo)
+                           .reduce((a, b) => {
+                              const saldoA = a ?? 0;
+                              const saldoB = b ?? 0;
+                              return saldoA + saldoB;
+                           })}
+                  </TableCell>
+               </TableRow>
+            </TableFooter>
+         </Table>
+      </>
    );
 }
 
