@@ -92,14 +92,15 @@ const FormPeminjaman = (props) => {
             />
           </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row check-box"
+          onChange={(e) => setSetuju(e.target.value)}
+        >
           <input
             type="checkbox"
             class="form-control"
             style={{ marginRight: "10px" }}
             id="setuju"
             value={setuju}
-            onChange={(e) => setSetuju(e.target.value)}
           />
           <label for="setuju" class="col-sm-2 col-form-label">
             Mengajukan permohonan untuk di buatkan Perjanjian Pangkalan
@@ -140,14 +141,13 @@ const FormPeminjaman = (props) => {
           />
           <br />
         </div>
-        <div class="form-group row" style={{ marginTop: "10px" }}>
+        <div class="form-group row check-box" style={{ marginTop: "10px" }} onClickCapture={e => setSetuju(!setuju)} >
           <input
             type="checkbox"
             class="form-control"
             id="setuju"
             style={{ marginRight: "10px" }}
             value={setuju}
-            onChange={(e) => setSetuju(e.target.value)}
           />
           <label for="setuju" class="col-sm-2 col-form-label">
             Kami bersedia mematuhi segala peraturan yang diberikan KOPANA
@@ -159,9 +159,11 @@ const FormPeminjaman = (props) => {
         </div>
         <br />
 
-        <Button type="submit">
-          Simpan Transaksi
-        </Button>
+        <div className="form-group row">
+          <Button type="submit">
+            Simpan Transaksi
+          </Button>
+        </div>
       </form>
     </div>
   );

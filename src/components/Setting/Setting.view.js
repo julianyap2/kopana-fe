@@ -150,22 +150,26 @@ const Setting = () => {
                      <h2 style={{ margin: "0 100px" }}>Profile</h2>
                      <br />
                      <br />
-                     <span style={{ margin: "0 100px" }}>Foto</span>
                      <div
-                        style={{
-                           display: "flex",
-                           alignItems: "center",
-                           margin: "0 100px",
-                        }}
+                        className="form-group row"
                      >
-                        {selectedFile && (
-                           <img
-                              src={preview}
-                              width={"75px"}
-                              height={"75px"}
-                           />
-                        )}
-                        <input type="file" onChange={onSelectFile} />
+                        <span>Foto</span>
+                        <div
+                           className="col-sm-10"
+                           style={{
+                              display: "flex",
+                              alignItems: "center",
+                           }}
+                        >
+                           {selectedFile && (
+                              <img
+                                 src={preview}
+                                 width={"75px"}
+                                 height={"75px"}
+                              />
+                           )}
+                           <input type="file" onChange={onSelectFile} />
+                        </div>
                      </div>
                      <div class="form-group row">
                         <br />
@@ -195,6 +199,7 @@ const Setting = () => {
                               id="email"
                               className={InputClassName}
                               value={email}
+                              disabled
                               onChange={(e) => setEmail(e.target.value)}
                            />
                         </div>

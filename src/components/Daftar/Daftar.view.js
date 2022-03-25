@@ -4,6 +4,7 @@ import { useToasts } from 'react-toast-notifications'
 import { KopanaApi } from "api";
 
 import './Daftar.styled.css';
+import Button from "../Button/Button.view";
 
 
 const Daftar = () => {
@@ -168,21 +169,22 @@ const Daftar = () => {
             />
           </div>
         </div>
-        <div className="form-group row">
+        <div className="form-group row check-box" onClickCapture={e => setSetuju(!setuju)}>
           <input
             type="checkbox"
             className="form-control inputan"
             id="setuju"
             value={setuju}
-            onChange={(e) => setSetuju(e.target.value)}
           />
           <label htmlFor="setuju" className="col-sm-2 col-form-label">
             Saya Setuju Untuk Menjadi Anggota KOPANA Bandung
           </label>
         </div>
-        <button type="submit" className="btn btn-primary" style={{ marginTop: '10px' }}>
-          Submit
-        </button>
+        <div className="form-group">
+          <Button type="submit">
+            Submit
+          </Button>
+        </div>
       </div>
     </form>
   );

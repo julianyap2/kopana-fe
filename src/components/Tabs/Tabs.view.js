@@ -54,11 +54,13 @@ function TabGroup() {
           <div className="containerTanggalKet">
             <div className="tanggal">Tanggal</div>
             <div className="keterangan">Keterangan</div>
+            <div className="keterangan">Saldo</div>
           </div>
           {test.setoranPokokId.map((d) => (
             <div style={{ display: 'flex' }}>
               <div className="tanggal">{moment(d.tanggal).format("DD-MM-YYYY")}</div>
               <div className="keterangan">{d.deskripsi}</div>
+              <div className="keterangan">{d.saldo}</div>
             </div>
           ))}
         </div>
@@ -69,12 +71,14 @@ function TabGroup() {
           <div className="containerTanggalKet">
             <div className="tanggal">Tanggal</div>
             <div className="keterangan">Keterangan</div>
+            <div className="keterangan">Saldo</div>
 
           </div>
           {test.setoranId.map((d) => (
             <div style={{ display: 'flex' }}>
               <div className="tanggal">{moment(d.tanggal).format("DD-MM-YYYY")}</div>
               <div className="keterangan">{d.deskripsi}</div>
+              <div className="keterangan">{d.saldo}</div>
             </div>
           ))}
         </div>

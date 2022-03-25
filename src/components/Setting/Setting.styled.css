@@ -20,3 +20,7 @@ form .form-group input {
 form .form-group input:focus {
    outline: none;
 }
+
+form .form-group.check-box {
+   cursor: pointer;
+}

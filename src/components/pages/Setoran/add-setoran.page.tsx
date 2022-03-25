@@ -128,7 +128,7 @@ function FormSetoran({ type }: FormSetoranProps) {
             variant="outlined"
             size="small"
          >
-            <InputLabel htmlFor="tanggal">Tanggal Setoran</InputLabel>
+            {/* <InputLabel htmlFor="tanggal">Tanggal Setoran</InputLabel> */}
             <Input
                id={"inp-tanggal:" + type}
                name="tanggal"
@@ -157,7 +157,7 @@ function FormSetoran({ type }: FormSetoranProps) {
             variant="outlined"
             size="small"
          >
-            <InputLabel htmlFor="deskripsi">Deskripsi</InputLabel>
+            {/* <InputLabel htmlFor="deskripsi">Deskripsi</InputLabel> */}
             <TextField
                id={"inp-deskripsi:" + type}
                name="deskripsi"
