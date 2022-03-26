@@ -17,9 +17,9 @@ const Setting = () => {
    const [noAnggota, setNoAnggota] = useState("");
    const [email, setEmail] = useState("");
    const [selectedFile, setSelectedFile] = useState();
-   const [preview, setPreview] = useState();
+   const [preview, setPreview] = useState<string>();
    const [selected, setSelected] = useState();
-   const [view, setView] = useState();
+   const [view, setView] = useState<string>();
    const [noDihubungi, setNoDihubungi] = useState("");
    const [tanggalLahir, setTanggalLahir] = useState("");
    const [oldPassword, setOldPassword] = useState("");
@@ -48,7 +48,7 @@ const Setting = () => {
 
    useEffect(() => {
       if (!selected) {
-         setView(undefined);
+         setView(null);
          return;
       }
       const objectUrl = URL.createObjectURL(selected);
@@ -58,7 +58,7 @@ const Setting = () => {
 
    const onSelect = (e) => {
       if (!e.target.files || e.target.files.length === 0) {
-         setSelected(undefined);
+         setSelected(null);
          return;
       }
       setSelected(e.target.files[0]);
@@ -83,12 +83,7 @@ const Setting = () => {
          );
          setNoDihubungi(response.data.nomerTelepon);
          setIsLoading(false);
-         if (Kopana.isStatus200ish(response.status)) {
-            toast.addToast('Berhasil mengupdate profile!', {
-               appearance: 'success',
-               autoDismiss: true,
-            })
-         }
+
       } catch (error) {
          console.error(error);
       }
@@ -112,7 +107,12 @@ const Setting = () => {
       formData.append("noKtp", noKtp);
       formData.append("tanggalLahir", tanggalLahir);
       const res = await Kopana.put("/member", formData);
-      console.log(res);
+      if (Kopana.isStatus200ish(res.status)) {
+         toast.addToast('Berhasil mengupdate profile!', {
+            appearance: 'success',
+            autoDismiss: true,
+         })
+      }
    };
 
    const changePass = async (event) => {
@@ -166,15 +166,15 @@ const Setting = () => {
                            <input type="file" onChange={onSelectFile} />
                         </div>
                      </div>
-                     <div class="form-group row">
+                     <div className="form-group row">
                         <br />
                         <label
-                           for="namaLengkap"
-                           class="col-sm-2 col-form-label"
+                           htmlFor="namaLengkap"
+                           className="col-sm-2 col-form-label"
                         >
                            Nama Lengkap
                         </label>
-                        <div class="col-sm-10">
+                        <div className="col-sm-10">
                            <input
                               type="text"
                               id="namaLengkap"
@@ -184,11 +184,11 @@ const Setting = () => {
                            />
                         </div>
                      </div>
-                     <div class="form-group row">
-                        <label for="email" class="col-sm-2 col-form-label">
+                     <div className="form-group row">
+                        <label htmlFor="email" className="col-sm-2 col-form-label">
                            Email
                         </label>
-                        <div class="col-sm-10">
+                        <div className="col-sm-10">
                            <input
                               type="text"
                               id="email"
@@ -199,14 +199,14 @@ const Setting = () => {
                            />
                         </div>
                      </div>
-                     <div class="form-group row">
+                     <div className="form-group row">
                         <label
-                           for="noPegawai"
-                           class="col-sm-2 col-form-label"
+                           htmlFor="noPegawai"
+                           className="col-sm-2 col-form-label"
                         >
                            No. Anggota
                         </label>
-                        <div class="col-sm-10">
+                        <div className="col-sm-10">
                            <input
                               type="text"
                               className={InputClassName}
@@ -230,14 +230,14 @@ const Setting = () => {
                   <form>
                      <h2 style={{ margin: "0 100px" }}>Data Pribadi</h2>
 
-                     <div class="form-group row">
+                     <div className="form-group row">
                         <label
-                           for="noDihubungi"
-                           class="col-sm-2 col-form-label"
+                           htmlFor="noDihubungi"
+                           className="col-sm-2 col-form-label"
                         >
                            Nomor Telepon
                         </label>
-                        <div class="col-sm-10">
+                        <div className="col-sm-10">
                            <input
                               type="text"
                               id="noDihubungi"
@@ -249,14 +249,14 @@ const Setting = () => {
                            />
                         </div>
                      </div>
-                     <div class="form-group row">
+                     <div className="form-group row">
                         <label
-                           for="noPegawai"
-                           class="col-sm-2 col-form-label"
+                           htmlFor="noPegawai"
+                           className="col-sm-2 col-form-label"
                         >
                            No. Pegawai Pertamina
                         </label>
-                        <div class="col-sm-10">
+                        <div className="col-sm-10">
                            <input
                               type="text"
                               className={InputClassName}
@@ -269,11 +269,11 @@ const Setting = () => {
                            />
                         </div>
                      </div>
-                     <div class="form-group row">
-                        <label for="noKtp" class="col-sm-2 col-form-label">
+                     <div className="form-group row">
+                        <label htmlFor="noKtp" className="col-sm-2 col-form-label">
                            NIK / No. KTP
                         </label>
-                        <div class="col-sm-10">
+                        <div className="col-sm-10">
                            <input
                               type="text"
                               className={InputClassName}
@@ -283,14 +283,14 @@ const Setting = () => {
                            />
                         </div>
                      </div>
-                     <div class="form-group row">
+                     <div className="form-group row">
                         <label
-                           for="tanggalLahir"
-                           class="col-sm-2 col-form-label"
+                           htmlFor="tanggalLahir"
+                           className="col-sm-2 col-form-label"
                         >
                            Tanggal Lahir
                         </label>
-                        <div class="col-sm-10">
+                        <div className="col-sm-10">
                            <input
                               type="text"
                               className={InputClassName}
@@ -334,14 +334,14 @@ const Setting = () => {
                      <h2 style={{ margin: "0 100px", marginTop: "60px" }}>
                         Ubah Password
                      </h2>
-                     <div class="form-group row">
+                     <div className="form-group row">
                         <label
-                           for="password"
-                           class="col-sm-2 col-form-label"
+                           htmlFor="password"
+                           className="col-sm-2 col-form-label"
                         >
                            Password Lama
                         </label>
-                        <div class="col-sm-10">
+                        <div className="col-sm-10">
                            <input
                               type="password"
                               id="old-password"
@@ -353,14 +353,14 @@ const Setting = () => {
                            />
                         </div>
                      </div>
-                     <div class="form-group row">
+                     <div className="form-group row">
                         <label
-                           for="password"
-                           class="col-sm-2 col-form-label"
+                           htmlFor="password"
+                           className="col-sm-2 col-form-label"
                         >
                            Password Baru
                         </label>
-                        <div class="col-sm-10">
+                        <div className="col-sm-10">
                            <input
                               type="password"
                               id="password"
@@ -370,14 +370,14 @@ const Setting = () => {
                            />
                         </div>
                      </div>
-                     <div class="form-group row">
+                     <div className="form-group row">
                         <label
-                           for="password"
-                           class="col-sm-2 col-form-label"
+                           htmlFor="password"
+                           className="col-sm-2 col-form-label"
                         >
                            Konfirmasi Password
                         </label>
-                        <div class="col-sm-10">
+                        <div className="col-sm-10">
                            <input
                               type="password"
                               id="password"

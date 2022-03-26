@@ -1,3 +1,8 @@
+.setoran-view {
+   min-height: 601px;
+   margin-bottom: 10px;
+}
+
 .form-setoran {
    width: 80%;
    margin: 0 auto;
@@ -40,4 +45,42 @@
          margin-left: 10px;
       }
    }
+
+   thead {
+      background-color: #ececec;
+      tr > th {
+         font-weight: 600;
+      }
+   }
+
+   tbody > tr {
+      &:hover {
+         background-color: #f5f5f5;
+      }
+   }
+
+   td.col {
+      padding-top: 8px;
+      padding-bottom: 8px;
+   }
+
+   th.col-index,
+   td.col-index {
+      width: 50px;
+   }
+
+   th.col-date,
+   td.col-date {
+      width: 120px;
+   }
+
+   th.col-name,
+   td.col-name {
+      width: 150px;
+   }
+
+   // th.col-date,
+   // td.col-date {
+   //    width: 120px;
+   // }
 }

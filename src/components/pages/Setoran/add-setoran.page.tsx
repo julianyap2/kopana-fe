@@ -23,6 +23,7 @@ function FormSetoranPage() {
       <div>
          <Navbar />
          <Tabs
+            className="setoran-view"
             activeKey={active}
             onChange={(k) => setActive(k)}
             style={{

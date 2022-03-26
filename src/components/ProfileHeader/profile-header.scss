@@ -1,0 +1,45 @@
+.profile-header {
+   display: flex;
+   flex-direction: row;
+   margin-top: 20px;
+
+   .header-misc {
+      padding: 0 0.8rem;
+   }
+   .header-bio {
+      padding: 1rem 0.8rem;
+      flex: 1;
+
+      .bio-list {
+         list-style-type: none;
+         padding-inline-start: 0;
+         > li {
+            display: flex;
+            margin: 0.2em 0;
+            padding-inline-start: 0;
+
+            &.with-icon {
+               .icon-wrap,
+               .icon-content {
+                  float: left;
+                  &:first-child {
+                     margin-right: 5px;
+                  }
+               }
+            }
+         }
+      }
+   }
+
+   .header-misc {
+      .setting-icon {
+         color: black;
+         width: 1.5em;
+         height: 1.5em;
+         transition: color 200ms;
+         &:hover {
+            color: #50a6fc;
+         }
+      }
+   }
+}

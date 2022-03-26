@@ -27,6 +27,7 @@ function Setoran(props: SetoranProps) {
       <div>
          <Navbar />
          <Tabs
+            className="setoran-view"
             activeKey={active}
             onChange={(k) => setActive(k)}
             style={{
@@ -213,11 +214,11 @@ function SetoranTable({ type }: SetoranTableProps) {
          <Table className="table-setoran">
             <TableHead>
                <TableRow>
-                  <TableCell>No.</TableCell>
-                  <TableCell>Member</TableCell>
-                  <TableCell>Deskripsi</TableCell>
-                  <TableCell>Tanggal</TableCell>
-                  <TableCell>Saldo</TableCell>
+                  <TableCell className="col col-index">No.</TableCell>
+                  <TableCell className="col col-name">Member</TableCell>
+                  <TableCell className="col col-desc">Deskripsi</TableCell>
+                  <TableCell className="col col-date" >Tanggal</TableCell>
+                  <TableCell className="col col-saldo">Saldo</TableCell>
                </TableRow>
             </TableHead>
             <TableBody>
@@ -229,11 +230,11 @@ function SetoranTable({ type }: SetoranTableProps) {
 
                      return (
                         <TableRow key={`${type}-${index}`}>
-                           <TableCell>{index + 1}</TableCell>
-                           <TableCell>{data.memberId.nama}</TableCell>
-                           <TableCell>{data.deskripsi}</TableCell>
-                           <TableCell>{format}</TableCell>
-                           <TableCell>{data.saldo || 0}</TableCell>
+                           <TableCell className="col col-index">{index + 1}</TableCell>
+                           <TableCell className="col col-name">{data.memberId.nama}</TableCell>
+                           <TableCell className="col col-desc">{data.deskripsi}</TableCell>
+                           <TableCell className="col col-date">{format}</TableCell>
+                           <TableCell className="col col-saldo">{data.saldo || 0}</TableCell>
                         </TableRow>
                      );
                   })}
