@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Tabs, { TabPane } from "rc-tabs";
-import axios from "axios";
-import { Link, useLocation } from "react-router-dom";
-import iziToast from "izitoast";
+import { useToasts } from 'react-toast-notifications'
 import Button from "../Button/Button.view";
 
 import "rc-tabs/assets/index.css";
@@ -12,6 +10,7 @@ import { useAuth } from "../../contexts/auth.context";
 
 const Setting = () => {
    const auth = useAuth();
+   const toast = useToasts();
    const [name, setName] = useState("");
    const [noKtp, setNoKtp] = useState("");
    const [noPegawai, setNoPegawai] = useState("");
@@ -65,9 +64,6 @@ const Setting = () => {
       setSelected(e.target.files[0]);
    };
 
-   function callback(e) {
-      console.log(e);
-   }
    const getUser = async () => {
       try {
          let tes = JSON.parse(localStorage.getItem("user"));
@@ -87,11 +83,11 @@ const Setting = () => {
          );
          setNoDihubungi(response.data.nomerTelepon);
          setIsLoading(false);
-         if (response.status == 200) {
-            iziToast.success({
-               title: "Berhasil",
-               message: "Berhasil Mengganti Data",
-            });
+         if (Kopana.isStatus200ish(response.status)) {
+            toast.addToast('Berhasil mengupdate profile!', {
+               appearance: 'success',
+               autoDismiss: true,
+            })
          }
       } catch (error) {
          console.error(error);
@@ -139,7 +135,6 @@ const Setting = () => {
       <div>
          <Tabs
             defaultActiveKey="1"
-            onChange={callback}
             tabPosition="left"
             tabBarGutter={20}
             style={{ margin: "20px 20px" }}

@@ -86,7 +86,7 @@ function TableSetoran(props) {
         {data.map((d, index) => {
           return <TableRow key={"profile-setoran:" + index}>
             <TableCell>{index + 1}.</TableCell>
-            <TableCell>{moment(d.tanggal).format("DD-MM-YYY")}</TableCell>
+            <TableCell>{moment(d.tanggal).format("DD-MM-YYYY")}</TableCell>
             <TableCell>{d.deskripsi}</TableCell>
             <TableCell>{d.saldo || 0}</TableCell>
           </TableRow>
