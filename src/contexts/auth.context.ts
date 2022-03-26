@@ -71,7 +71,8 @@ export function useAuth(): IAuthHook {
    useEffect(() => {
       Kopana.get("/whoami").then((res) => {
          setRoles(res.data.roles.map((e) => e.name));
-      });
+      })
+      .catch(console.error);
    }, [c.isLoggedIn]);
 
    return Object.freeze<IAuthHook>({
