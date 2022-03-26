@@ -53,7 +53,6 @@ export default Setoran;
 export interface SetoranProps {}
 
 function SetoranTable({ type }: SetoranTableProps) {
-   const location = useLocation();
    const auth = useAuth();
    const url = "/setoran-" + type;
    const [members, setMembers] = useState([]);
@@ -108,27 +107,22 @@ function SetoranTable({ type }: SetoranTableProps) {
 
    useEffect(() => {
       if (auth.isLogin) {
-         Kopana.get("/member")
-            .then((res) => {
-               setMembers(res.data.data);
-            })
-            .then(() => {
-               Kopana.get(url, {
-                  params: { page: pageable.page, size: pageable.size },
-               }).then((res) => {
-                  console.log(res.data);
-                  setData(res.data.data);
-                  setPageable({
-                     page: +res.data.page,
-                     size: +res.data.size,
-                     total: +res.data.total,
-                  });
-
-                  res.headers["x-page-count"];
-                  res.headers["x-total-count"];
+         Kopana.get("/member").then((res) => {
+            setMembers(res.data.data);
+            Kopana.get(url, {
+               params: { page: pageable.page, size: pageable.size },
+            }).then((res) => {
+               setData(res.data.data);
+               setPageable({
+                  page: +res.data.page,
+                  size: +res.data.size,
+                  total: +res.data.total,
                });
+
+               res.headers["x-page-count"];
+               res.headers["x-total-count"];
             });
-      } else {
+         });
       }
    }, []);
 

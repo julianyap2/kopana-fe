@@ -29,7 +29,6 @@ function TabGroup() {
   }
   useEffect(() => {
     getUser()
-    console.log('test')
   }, [])
 
   // classNames
