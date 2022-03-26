@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useToasts } from 'react-toast-notifications'
 import Button from '../Button/Button.view'
+import { CheckButton } from '../Button/CheckButton'
 import { KopanaApi } from "api";
 
 import './FormPeminjaman.styled.css';
@@ -9,7 +10,10 @@ const FormPeminjaman = (props) => {
   const [alamatRumah, setAlamatRumah] = useState("");
   const [alamatPangkalan, setAlamatPangkalan] = useState("");
   const [nama, setNama] = useState("");
-  const [setuju, setSetuju] = useState("");
+  const [setuju, setSetuju] = useState({
+    perjanjian: false,
+    mematuhi: false
+  });
   const [ktp, setKtp] = useState([]);
   const [keteranganUsaha, setKeteranganUsaha] = useState([]);
   const [suratTeraTimbangan, setSuratTeraTimbangan] = useState([]);
@@ -17,6 +21,16 @@ const FormPeminjaman = (props) => {
   const { addToast } = useToasts();
   const AddFormData = async (e) => {
     e.preventDefault();
+
+    // if(!setuju.mematuhi) addToast('Anda harus setuju untuk mematuhi peraturan yang ada!', {
+    //   appearance: 'error'
+    // });
+
+    // if(!setuju.perjanjian) addToast('Anda harus setuju untuk mematuhi peraturan yang ada!', {
+    //   appearance: 'error'
+    // });
+
+
     const formData = new FormData();
     formData.append('nama', nama)
     formData.append('alamatRumah', alamatRumah)
@@ -27,7 +41,6 @@ const FormPeminjaman = (props) => {
     formData.append('imageKtp', ktp)
 
     const res = await KopanaApi.post('/formulir', formData)
-    console.log(res);
     if (res.status == 200) {
       addToast("berhasil!", {
         appearance: 'success',
@@ -92,21 +105,14 @@ const FormPeminjaman = (props) => {
             />
           </div>
         </div>
-        <div class="form-group row check-box"
-          onChange={(e) => setSetuju(e.target.value)}
+        <CheckButton
+          name="check-perjanjian"
+          value={setuju.perjanjian}
+          onChange={(v) => setSetuju(e => ({ ...e, perjanjian: v }))}
         >
-          <input
-            type="checkbox"
-            class="form-control"
-            style={{ marginRight: "10px" }}
-            id="setuju"
-            value={setuju}
-          />
-          <label for="setuju" class="col-sm-2 col-form-label">
-            Mengajukan permohonan untuk di buatkan Perjanjian Pangkalan
-            berdasarkan alamat di atas.
-          </label>
-        </div>
+          Mengajukan permohonan untuk di buatkan Perjanjian Pangkalan
+          berdasarkan alamat di atas.
+        </CheckButton>
         <div className="form-group containerDropzone" style={{ marginTop: "10px" }}>
           <span for="myfile">Upload Foto KTP : </span>
           <input
@@ -141,22 +147,17 @@ const FormPeminjaman = (props) => {
           />
           <br />
         </div>
-        <div class="form-group row check-box" style={{ marginTop: "10px" }} onClickCapture={e => setSetuju(!setuju)} >
-          <input
-            type="checkbox"
-            class="form-control"
-            id="setuju"
-            style={{ marginRight: "10px" }}
-            value={setuju}
-          />
-          <label for="setuju" class="col-sm-2 col-form-label">
-            Kami bersedia mematuhi segala peraturan yang diberikan KOPANA
-            Bandung termasuk menjual
-            <br />
-            LPG 3 kg sesuai dengan Harga Eceran Tertinggi (HET) yang diberikan
-            oleh Pemda Setempat.
-          </label>
-        </div>
+        <CheckButton
+          name="check-mematuhi"
+          value={setuju.mematuhi}
+          onChange={(v) => setSetuju(e => ({ ...e, mematuhi: v }))}
+        >
+          Kami bersedia mematuhi segala peraturan yang diberikan KOPANA
+          Bandung termasuk menjual
+          <br />
+          LPG 3 kg sesuai dengan Harga Eceran Tertinggi (HET) yang diberikan
+          oleh Pemda Setempat.
+        </CheckButton>
         <br />
 
         <div className="form-group row">

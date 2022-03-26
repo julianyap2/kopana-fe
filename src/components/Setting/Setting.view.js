@@ -6,7 +6,7 @@ import iziToast from "izitoast";
 import Button from "../Button/Button.view";
 
 import "rc-tabs/assets/index.css";
-import "./Setting.styled.css";
+import "./Setting.styled.scss";
 import { classNames } from "../../utils/merge-classname";
 import { useAuth } from "../../contexts/auth.context";
 

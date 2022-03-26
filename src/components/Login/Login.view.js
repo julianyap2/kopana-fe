@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Login.styled.css";
 import axios from "axios";
 import { useToasts } from 'react-toast-notifications'
@@ -10,6 +10,8 @@ import { isStatus200ish } from "api";
 
 
 const Login = () => {
+  const loc = useLocation();
+  const navigate = useNavigate()
   const auth = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,7 +29,12 @@ const Login = () => {
             appearance: 'success',
             autoDismiss: true,
           })
-          window.open('/beranda-login', '_self')
+          if (loc.state?.lastVisit) {
+            window.location.pathname = loc.state.lastVisit.pathname;
+          }
+          else {
+            window.location.pathname = '/'
+          }
         }
       })
       .catch(err => {

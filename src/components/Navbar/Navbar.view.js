@@ -38,7 +38,7 @@ const Navbar = () => {
                   );
                })}
 
-               {auth.isAdmin() && (
+               {auth.isAdmin && (
                   <>
                      <NavLink to="/setoran" activeStyle>
                         List Setoran

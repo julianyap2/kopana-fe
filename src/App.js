@@ -2,6 +2,7 @@
 
 import "./App.css";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import { IsLoginWrap } from './components/pages/Login/Login.redirect'
 import Home from "./components/pages/Home/Home.view";
 import Gallery from "./components/pages/Gallery/Gallery.view";
 import Peminjaman from "./components/pages/Peminjaman/Peminjaman.view"
@@ -25,15 +26,19 @@ import { AuthProvider } from "contexts/auth.context";
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
+    <Router>
+      <AuthProvider>
         <Routes>
           <Route caseSensitive path="/" element={<Home />} />
           <Route caseSensitive path="/gallery" element={<Gallery />} />
           <Route caseSensitive path="/pangkalan" element={<Peminjaman />} />
-          <Route caseSensitive path="/setoran" element={<ListSetoran />} />
+          <Route caseSensitive path="/setoran" element={
+            <IsLoginWrap>
+              <ListSetoran />
+            </IsLoginWrap>
+          } />
           <Route caseSensitive path="/setoran/add" element={<FormSetoranPage />} />
-          
+
           <Route caseSensitive path='/beranda-login' element={<HomeLogin />} />
           <Route caseSensitive path='/gallery-login' element={<GalleryLogin />} />
           <Route caseSensitive path='/add-gallery' element={<AddGalery />} />
@@ -43,7 +48,7 @@ function App() {
           <Route caseSensitive path='/SyaratPangkalan' element={<SyaratPeminjaman />} />
           <Route caseSensitive path='/profile' element={<Profile />} />
           <Route caseSensitive path='/profile-setting' element={<ProfileSetting />} />
-          
+
           <Route caseSensitive path='/SyaratPangkalan-login' element={<SyaratPangkalanLogin />} />
           <Route caseSensitive path='/pangkalan-login' element={<PangkalanLogin />} />
           <Route caseSensitive path='/add-setoran' element={<InsideProfile />} />
@@ -51,8 +56,8 @@ function App() {
           <Route caseSensitive path='/tentang-kami' element={<TentangKami />} />
           <Route caseSensitive path='/tentang-kami-login' element={<TentangKamiLogin />} />
         </Routes>
-      </Router>
-    </AuthProvider>
+      </AuthProvider>
+    </Router>
   );
 }
 

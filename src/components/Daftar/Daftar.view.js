@@ -5,6 +5,7 @@ import { KopanaApi } from "api";
 
 import './Daftar.styled.css';
 import Button from "../Button/Button.view";
+import { CheckButton } from "../Button/CheckButton";
 
 
 const Daftar = () => {
@@ -169,17 +170,9 @@ const Daftar = () => {
             />
           </div>
         </div>
-        <div className="form-group row check-box" onClickCapture={e => setSetuju(!setuju)}>
-          <input
-            type="checkbox"
-            className="form-control inputan"
-            id="setuju"
-            value={setuju}
-          />
-          <label htmlFor="setuju" className="col-sm-2 col-form-label">
+        <CheckButton name="setuju" onChange={setSetuju}>
             Saya Setuju Untuk Menjadi Anggota KOPANA Bandung
-          </label>
-        </div>
+        </CheckButton>
         <div className="form-group">
           <Button type="submit">
             Submit

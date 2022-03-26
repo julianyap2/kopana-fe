@@ -78,7 +78,7 @@ function TabGroup() {
             <div style={{ display: 'flex' }}>
               <div className="tanggal">{moment(d.tanggal).format("DD-MM-YYYY")}</div>
               <div className="keterangan">{d.deskripsi}</div>
-              <div className="keterangan">{d.saldo}</div>
+              <div className="keterangan">{d.saldo || 0}</div>
             </div>
           ))}
         </div>

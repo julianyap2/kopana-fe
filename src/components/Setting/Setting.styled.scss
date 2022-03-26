@@ -1,0 +1,36 @@
+form.account-settings {
+}
+
+form .form-group {
+   width: 57%;
+   min-width: 320px;
+   margin: 0 auto;
+   margin-bottom: 0.5em;
+
+   &:last-child {
+      margin-top: 1em;
+   }
+
+   &.check-box {
+      display: flex;
+      flex-direction: row;
+
+      > .checker {
+         padding: 2px 7px;
+         > input {
+            width: 10px;
+         }
+      }
+   }
+
+   input {
+      outline: none;
+      padding: 5px 0.5rem;
+      width: 100%;
+      border-radius: 0px;
+
+      &:focus {
+         outline: none;
+      }
+   }
+}

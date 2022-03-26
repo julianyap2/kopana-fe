@@ -17,6 +17,8 @@ import {
    Typography,
 } from "@material-ui/core";
 import { useCallback, useEffect, useState } from "react";
+import { useAuth } from "contexts/auth.context";
+import { useLocation } from "react-router-dom";
 
 function Setoran(props: SetoranProps) {
    const [active, setActive] = useState("setoran-wajib");
@@ -50,6 +52,8 @@ export default Setoran;
 export interface SetoranProps {}
 
 function SetoranTable({ type }: SetoranTableProps) {
+   const location = useLocation();
+   const auth = useAuth();
    const url = "/setoran-" + type;
    const [members, setMembers] = useState([]);
    const [datas, setData] = useState([]);
@@ -77,7 +81,7 @@ function SetoranTable({ type }: SetoranTableProps) {
 
          setFilter((p) => ({ ...p, [k]: t }));
       },
-      [setFilter]
+      [filter]
    );
 
    const onPageChange = useCallback(
@@ -102,24 +106,30 @@ function SetoranTable({ type }: SetoranTableProps) {
    );
 
    useEffect(() => {
-      Kopana.get(url, {
-         params: { page: pageable.page, size: pageable.size },
-      }).then((res) => {
-         console.log(res.data);
-         setData(res.data.data);
-         setPageable({
-            page: +res.data.page,
-            size: +res.data.size,
-            total: +res.data.total,
-         });
+      if (auth.isLogin) {
+         Kopana.get("/member")
+            .then((res) => {
+               setMembers(res.data.data);
+            })
+            .then(() => {
+               Kopana.get(url, {
+                  params: { page: pageable.page, size: pageable.size },
+               }).then((res) => {
+                  console.log(res.data);
+                  setData(res.data.data);
+                  setPageable({
+                     page: +res.data.page,
+                     size: +res.data.size,
+                     total: +res.data.total,
+                  });
 
-         res.headers["x-page-count"];
-         res.headers["x-total-count"];
-      });
-
-      Kopana.get("/member").then((res) => {
-         setMembers(res.data.data);
-      });
+                  res.headers["x-page-count"];
+                  res.headers["x-total-count"];
+               });
+            });
+      }
+      else {
+      }
    }, []);
 
    return (
@@ -128,6 +138,7 @@ function SetoranTable({ type }: SetoranTableProps) {
             <Select
                label="Member"
                defaultValue={"all"}
+               value={filter.member || "all"}
                onChange={(e) =>
                   setFilterData("member", e.target.value as any)
                }
@@ -137,13 +148,14 @@ function SetoranTable({ type }: SetoranTableProps) {
                </MenuItem>
                {members.map((e) => (
                   <MenuItem key={"filter-name:" + e.nama} value={e._id}>
-                     {e.nama}
+                     {e.nama} - {e.nomerPegawaiPertamina}
                   </MenuItem>
                ))}
             </Select>
             <Select
                label="Bulan"
                defaultValue={"all"}
+               value={filter.bulan || "all"}
                onChange={(e) =>
                   setFilterData("bulan", e.target.value as any)
                }
@@ -167,6 +179,7 @@ function SetoranTable({ type }: SetoranTableProps) {
             <Select
                label="Tahun"
                defaultValue={"all"}
+               value={filter.tahun || "all"}
                onChange={(e) =>
                   setFilterData("tahun", e.target.value as any)
                }
@@ -191,11 +204,15 @@ function SetoranTable({ type }: SetoranTableProps) {
             <Button onClick={(e) => onPageChange(pageable.page)}>
                Search
             </Button>
-            <Button onClick={(e) => setFilter({
-               bulan: null,
-               member: null,
-               tahun: null
-            })}>
+            <Button
+               onClick={(e) =>
+                  setFilter({
+                     bulan: null,
+                     member: null,
+                     tahun: null,
+                  })
+               }
+            >
                Reset
             </Button>
          </div>

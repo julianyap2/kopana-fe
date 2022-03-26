@@ -16,15 +16,11 @@ export function AuthProvider({
    children,
 }: PropsWithChildren<{}>): JSX.Element {
    const [isLoggedIn, setLoggedIn] = useState(false);
-   const [roles, setRoles] = useState<string[]>([]);
 
    useEffect(() => {
       Kopana.get("/whoami")
          .then((res) => {
-            if (Kopana.isStatus200ish(res.status)) {
-               setLoggedIn(true);
-               setRoles(res.data.roles.map((e) => e.name));
-            }
+            if (Kopana.isStatus200ish(res.status)) setLoggedIn(true);
          })
          .catch((e) => setLoggedIn(false));
    }, []);
@@ -32,7 +28,6 @@ export function AuthProvider({
    return createElement(AuthContext.Provider, {
       value: {
          storage: "user",
-         roles,
          isLoggedIn,
          login: (v: boolean) => setLoggedIn(v),
       },
@@ -42,6 +37,7 @@ export function AuthProvider({
 
 export function useAuth(): IAuthHook {
    const c = useContext(AuthContext);
+   const [roles, setRoles] = useState<string[]>([]);
 
    const Login = useCallback(
       async (email: string, password: string) => {
@@ -50,7 +46,6 @@ export function useAuth(): IAuthHook {
             password,
          });
 
-         console.log(res);
          if (Kopana.isStatus200ish(res.status)) {
             localStorage.setItem(c.storage, JSON.stringify(res.data.data));
          }
@@ -67,9 +62,15 @@ export function useAuth(): IAuthHook {
       const user = localStorage.getItem(c.storage);
       if (!user) return;
       Kopana.get("/logout").then((res) => {
-         
          localStorage.removeItem(c.storage);
          c.login(false);
+         setRoles([]);
+      });
+   }, [c.isLoggedIn]);
+
+   useEffect(() => {
+      Kopana.get("/whoami").then((res) => {
+         setRoles(res.data.roles.map((e) => e.name));
       });
    }, [c.isLoggedIn]);
 
@@ -79,9 +80,7 @@ export function useAuth(): IAuthHook {
          return s ? JSON.parse(s) : null;
       },
       isLogin: c.isLoggedIn,
-      isAdmin() {
-         return c.roles.includes("admin");
-      },
+      isAdmin: roles.includes("admin"),
       Login,
       Logout,
    });
@@ -89,8 +88,8 @@ export function useAuth(): IAuthHook {
 
 export interface IAuthHook {
    user: IAuthUser;
-   isLogin: boolean;
-   isAdmin(): boolean;
+   readonly isLogin: boolean;
+   readonly isAdmin: boolean;
    Login(
       email: string,
       password: string
@@ -112,11 +111,11 @@ export interface IAuthUser {
 interface IAuthContext {
    readonly storage: string;
    readonly isLoggedIn: boolean;
-   readonly roles: string[];
    login(v: boolean): void;
 }
 
 interface IAuthLoginResponse {
    data: IAuthUser;
    message: string;
+   roles: string[];
 }
