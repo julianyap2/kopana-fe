@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import "./Tabs.styled.css";
 import moment from 'moment'
+import { Table, TableBody, TableCell, TableFooter, TableHead, TableRow } from "@material-ui/core";
+import { classNames } from "../../utils/merge-classname";
 
+import "./Tabs.styled.css";
 
 function TabGroup() {
   const [toggleState, setToggleState] = useState(1);
@@ -30,6 +32,7 @@ function TabGroup() {
     console.log('test')
   }, [])
 
+  // classNames
   return loading ? "Loading" : (
     <div className="container">
       <div className="bloc-tabs">
@@ -48,43 +51,56 @@ function TabGroup() {
       </div>
 
       <div className="content-tabs">
-        <div
-          className={toggleState === 1 ? "content  active-content" : "content"}
-        >
-          <div className="containerTanggalKet">
-            <div className="tanggal">Tanggal</div>
-            <div className="keterangan">Keterangan</div>
-            <div className="keterangan">Saldo</div>
-          </div>
-          {test.setoranPokokId.map((d) => (
-            <div style={{ display: 'flex' }}>
-              <div className="tanggal">{moment(d.tanggal).format("DD-MM-YYYY")}</div>
-              <div className="keterangan">{d.deskripsi}</div>
-              <div className="keterangan">{d.saldo}</div>
-            </div>
-          ))}
-        </div>
-
-        <div
-          className={toggleState === 2 ? "content  active-content" : "content"}
-        >
-          <div className="containerTanggalKet">
-            <div className="tanggal">Tanggal</div>
-            <div className="keterangan">Keterangan</div>
-            <div className="keterangan">Saldo</div>
-
-          </div>
-          {test.setoranId.map((d) => (
-            <div style={{ display: 'flex' }}>
-              <div className="tanggal">{moment(d.tanggal).format("DD-MM-YYYY")}</div>
-              <div className="keterangan">{d.deskripsi}</div>
-              <div className="keterangan">{d.saldo || 0}</div>
-            </div>
-          ))}
-        </div>
+        <TableSetoran active={toggleState === 1} data={test.setoranPokokId} />
+        <TableSetoran active={toggleState === 2} data={test.setoranId} />
       </div>
     </div>
   );
 }
 
 export default TabGroup;
+
+/**
+ * 
+ * @param {object} props 
+ * @param {object[]} props.data
+ * @param {boolean} [props.active]
+ */
+function TableSetoran(props) {
+  const { data, active = false } = props;
+  const totalSaldo = data.map(e => e.saldo || 0);
+
+  const className = classNames('content', {
+    'active-content': active === true
+  });
+  return <div className={className}>
+    <Table className="table-setoran">
+      <TableHead>
+        <TableRow>
+          <TableCell style={{ width: 80 }}>No</TableCell>
+          <TableCell style={{ width: 300 }}>Tanggal</TableCell>
+          <TableCell>Keterangan</TableCell>
+          <TableCell style={{ width: 150 }}>Saldo</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {data.map((d, index) => {
+          return <TableRow key={"profile-setoran:" + index}>
+            <TableCell>{index + 1}.</TableCell>
+            <TableCell>{moment(d.tanggal).format("DD-MM-YYY")}</TableCell>
+            <TableCell>{d.deskripsi}</TableCell>
+            <TableCell>{d.saldo || 0}</TableCell>
+          </TableRow>
+        })}
+      </TableBody>
+      <TableFooter>
+        <TableRow>
+          <TableCell colSpan={3}>Total Saldo</TableCell>
+          <TableCell>{
+            totalSaldo.length > 0 ? totalSaldo.reduce((a, b) => a + b) : 0
+          }</TableCell>
+        </TableRow>
+      </TableFooter>
+    </Table>
+  </div>
+}

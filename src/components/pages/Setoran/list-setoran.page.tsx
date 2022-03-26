@@ -1,6 +1,3 @@
-import Navbar from "components/Navbar/Navbar.view";
-import Footer from "components/Footer/Footer.view";
-import Tabs, { TabPane } from "rc-tabs";
 import {
    Button,
    Input,
@@ -16,9 +13,13 @@ import {
    TableRow,
    Typography,
 } from "@material-ui/core";
+import Tabs, { TabPane } from "rc-tabs";
 import { useCallback, useEffect, useState } from "react";
-import { useAuth } from "contexts/auth.context";
 import { useLocation } from "react-router-dom";
+import moment from "moment";
+import Navbar from "components/Navbar/Navbar.view";
+import Footer from "components/Footer/Footer.view";
+import { useAuth } from "contexts/auth.context";
 
 function Setoran(props: SetoranProps) {
    const [active, setActive] = useState("setoran-wajib");
@@ -127,8 +128,7 @@ function SetoranTable({ type }: SetoranTableProps) {
                   res.headers["x-total-count"];
                });
             });
-      }
-      else {
+      } else {
       }
    }, []);
 
@@ -231,15 +231,7 @@ function SetoranTable({ type }: SetoranTableProps) {
                {datas.length > 0 &&
                   datas.map((data, index) => {
                      const date = new Date(data.tanggal);
-                     const format = [
-                        DayWeek[date.getDay()],
-                        ", ",
-                        date.getDate(),
-                        " ",
-                        Month[date.getMonth()],
-                        " ",
-                        date.getFullYear(),
-                     ].join("");
+                     const format = moment(date).format("DD-MM-YYYY");
 
                      return (
                         <TableRow key={`${type}-${index}`}>
