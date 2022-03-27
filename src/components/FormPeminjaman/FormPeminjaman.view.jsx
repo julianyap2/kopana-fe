@@ -22,14 +22,13 @@ const FormPeminjaman = (props) => {
   const AddFormData = async (e) => {
     e.preventDefault();
 
-    // if(!setuju.mematuhi) addToast('Anda harus setuju untuk mematuhi peraturan yang ada!', {
-    //   appearance: 'error'
-    // });
+    if (!setuju.mematuhi) addToast('Anda harus setuju untuk mematuhi peraturan yang ada!', {
+      appearance: 'error'
+    });
 
-    // if(!setuju.perjanjian) addToast('Anda harus setuju untuk mematuhi peraturan yang ada!', {
-    //   appearance: 'error'
-    // });
-
+    if (!setuju.perjanjian) addToast('Anda harus setuju untuk mematuhi peraturan yang ada!', {
+      appearance: 'error'
+    });
 
     const formData = new FormData();
     formData.append('nama', nama)

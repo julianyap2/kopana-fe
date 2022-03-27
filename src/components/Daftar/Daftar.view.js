@@ -9,6 +9,7 @@ import { CheckButton } from "../Button/CheckButton";
 
 
 const Daftar = () => {
+  const toast = useToasts();
   const [name, setName] = useState("");
   const [noPegawai, setNoPegawai] = useState("");
   const [email, setEmail] = useState("");
@@ -21,6 +22,14 @@ const Daftar = () => {
 
   const AddFormData = async (e) => {
     e.preventDefault();
+
+    if (!setuju) {
+      return toast.addToast('Anda harus setuju dan mematuhi dengan persetujuan', {
+        appearance: 'error',
+        autoDismiss: true
+      });
+    }
+
     const data = {
       nama: name,
       password: password,
@@ -171,7 +180,7 @@ const Daftar = () => {
           </div>
         </div>
         <CheckButton name="setuju" onChange={setSetuju}>
-            Saya Setuju Untuk Menjadi Anggota KOPANA Bandung
+          Saya Setuju Untuk Menjadi Anggota KOPANA Bandung
         </CheckButton>
         <div className="form-group">
           <Button type="submit">
