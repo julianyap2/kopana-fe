@@ -11,9 +11,6 @@ import Daftar from "./components/pages/Daftar/Daftar.view";
 import SyaratPeminjaman from "./components/pages/SyaratPeminjaman/SyaratPeminjaman.view";
 import Profile from "./components/pages/Profile/Profile.view";
 import ProfileSetting from "./components/pages/ProfileSetting/ProfileSetting.view";
-import HomeLogin from "./components/pages/HomeLogin/HomeLogin.view";
-import GalleryLogin from "./components/pages/GalleryLogin/GalleryLogin.view";
-import AddGalery from "./components/pages/AddGallery/AddGallery"
 import PangkalanLogin from "./components/pages/PangkalanLogin/PangkalanLogin.view";
 import InsideProfile from "./components/pages/AddSetoran/AddSetoran";
 import ListSetoran from './components/pages/Setoran/list-setoran.page'
@@ -30,7 +27,10 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route caseSensitive path="/" element={<Home />} />
+          
           <Route caseSensitive path="/gallery" element={<Gallery />} />
+          <Route caseSensitive path="/gallery-login" element={<Gallery />} />
+
           <Route caseSensitive path="/pangkalan" element={<Peminjaman />} />
           <Route caseSensitive path="/setoran" element={
             <IsLoginWrap>
@@ -39,9 +39,7 @@ function App() {
           } />
           <Route caseSensitive path="/setoran/add" element={<FormSetoranPage />} />
 
-          <Route caseSensitive path='/beranda-login' element={<HomeLogin />} />
-          <Route caseSensitive path='/gallery-login' element={<GalleryLogin />} />
-          <Route caseSensitive path='/add-gallery' element={<AddGalery />} />
+          {/* <Route caseSensitive path='/add-gallery' element={<AddGalery />} /> */}
 
           <Route caseSensitive path='/login' element={<Login />} />
           <Route caseSensitive path='/daftar' element={<Daftar />} />

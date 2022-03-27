@@ -30,6 +30,8 @@ const Navbar = () => {
                </NavLink>
 
                {links.map(({ title, url, noLogin }) => {
+                  if(auth.isAdmin && title === 'Pangkalan') return null;
+
                   if (!noLogin) url += auth.isLogin ? "-login" : "";
                   return (
                      <NavLink to={url} activeStyle>

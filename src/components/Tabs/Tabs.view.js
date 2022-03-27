@@ -3,18 +3,14 @@ import { useState } from "react";
 import moment from 'moment'
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableRow } from "@material-ui/core";
 import { classNames } from "../../utils/merge-classname";
+import { normalizeCurrency } from "../../utils/split-currency";
 
 import "./Tabs.styled.css";
 
 function TabGroup() {
-  const [toggleState, setToggleState] = useState(1);
+  const [toggleState, toggleTab] = useState(1);
   const [test, setTest] = useState({})
   const [loading, setIsLoading] = useState(true)
-
-  const toggleTab = (index) => {
-    setToggleState(index);
-  };
-
 
   const getUser = async () => {
     try {
@@ -88,15 +84,15 @@ function TableSetoran(props) {
             <TableCell>{index + 1}.</TableCell>
             <TableCell>{moment(d.tanggal).format("DD-MM-YYYY")}</TableCell>
             <TableCell>{d.deskripsi}</TableCell>
-            <TableCell>{d.saldo || 0}</TableCell>
+            <TableCell>Rp. {normalizeCurrency(d.saldo || 0)}</TableCell>
           </TableRow>
         })}
       </TableBody>
       <TableFooter>
         <TableRow>
           <TableCell colSpan={3}>Total Saldo</TableCell>
-          <TableCell>{
-            totalSaldo.length > 0 ? totalSaldo.reduce((a, b) => a + b) : 0
+          <TableCell>Rp. {
+            normalizeCurrency(totalSaldo.length > 0 ? totalSaldo.reduce((a, b) => a + b) : 0)
           }</TableCell>
         </TableRow>
       </TableFooter>

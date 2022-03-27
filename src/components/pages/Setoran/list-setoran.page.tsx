@@ -20,6 +20,7 @@ import moment from "moment";
 import Navbar from "components/Navbar/Navbar.view";
 import Footer from "components/Footer/Footer.view";
 import { useAuth } from "contexts/auth.context";
+import { normalizeCurrency } from "utils/split-currency";
 
 function Setoran(props: SetoranProps) {
    const [active, setActive] = useState("setoran-wajib");
@@ -86,7 +87,7 @@ function SetoranTable({ type }: SetoranTableProps) {
    );
 
    const onPageChange = useCallback(
-      (page: number) => {
+      (page = 0) => {
          const params = { page, size: pageable.size, ...filter };
 
          console.log("Params: %o", params);
@@ -119,13 +120,21 @@ function SetoranTable({ type }: SetoranTableProps) {
                   size: +res.data.size,
                   total: +res.data.total,
                });
-
-               res.headers["x-page-count"];
-               res.headers["x-total-count"];
             });
          });
       }
    }, []);
+
+   const totalSaldo =
+      datas.length > 0
+         ? datas
+              .map((e) => e.saldo)
+              .reduce((a, b) => {
+                 const saldoA = a ?? 0;
+                 const saldoB = b ?? 0;
+                 return saldoA + saldoB;
+              })
+         : 0;
 
    return (
       <>
@@ -200,13 +209,13 @@ function SetoranTable({ type }: SetoranTableProps) {
                Search
             </Button>
             <Button
-               onClick={(e) =>
+               onClick={(e) => {
                   setFilter({
                      bulan: null,
                      member: null,
                      tahun: null,
-                  })
-               }
+                  });
+               }}
             >
                Reset
             </Button>
@@ -217,7 +226,7 @@ function SetoranTable({ type }: SetoranTableProps) {
                   <TableCell className="col col-index">No.</TableCell>
                   <TableCell className="col col-name">Member</TableCell>
                   <TableCell className="col col-desc">Deskripsi</TableCell>
-                  <TableCell className="col col-date" >Tanggal</TableCell>
+                  <TableCell className="col col-date">Tanggal</TableCell>
                   <TableCell className="col col-saldo">Saldo</TableCell>
                </TableRow>
             </TableHead>
@@ -230,11 +239,21 @@ function SetoranTable({ type }: SetoranTableProps) {
 
                      return (
                         <TableRow key={`${type}-${index}`}>
-                           <TableCell className="col col-index">{index + 1}</TableCell>
-                           <TableCell className="col col-name">{data.memberId.nama}</TableCell>
-                           <TableCell className="col col-desc">{data.deskripsi}</TableCell>
-                           <TableCell className="col col-date">{format}</TableCell>
-                           <TableCell className="col col-saldo">{data.saldo || 0}</TableCell>
+                           <TableCell className="col col-index">
+                              {index + 1}
+                           </TableCell>
+                           <TableCell className="col col-name">
+                              {data.memberId.nama}
+                           </TableCell>
+                           <TableCell className="col col-desc">
+                              {data.deskripsi}
+                           </TableCell>
+                           <TableCell className="col col-date">
+                              {format}
+                           </TableCell>
+                           <TableCell className="col col-saldo">
+                              Rp. {normalizeCurrency(data.saldo || 0)}
+                           </TableCell>
                         </TableRow>
                      );
                   })}
@@ -250,17 +269,7 @@ function SetoranTable({ type }: SetoranTableProps) {
                      onPageChange={(e, v) => onPageChange(v)}
                   />
                   <TableCell>Total Saldo: </TableCell>
-                  <TableCell>
-                     {datas &&
-                        datas.length > 0 &&
-                        datas
-                           .map((e) => e.saldo)
-                           .reduce((a, b) => {
-                              const saldoA = a ?? 0;
-                              const saldoB = b ?? 0;
-                              return saldoA + saldoB;
-                           })}
-                  </TableCell>
+                  <TableCell>Rp. {normalizeCurrency(totalSaldo)}</TableCell>
                </TableRow>
             </TableFooter>
          </Table>
@@ -282,16 +291,6 @@ interface SetoranFilter {
    member: string;
    bulan: number;
    tahun: number;
-}
-
-enum DayWeek {
-   Senin,
-   Selasa,
-   Rabu,
-   Kamis,
-   Jumat,
-   Sabtu,
-   Minggu,
 }
 
 enum Month {
